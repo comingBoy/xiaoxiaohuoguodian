@@ -7,6 +7,35 @@ function sleep(time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
 
+//监听订单是否处理
+async function bindOrder(req) {
+  console.log("start binding ...")
+  var pending = parseInt(1000 * 60)
+  await sleep(pending)
+  console.log("1 min later ...")
+  var req = req
+  var res = await orderdb.getOrder0(req)
+  if (res[0].orderStatus == 0) {
+    console.log("order needed handling !")
+    //message
+    pending = parseInt(1000 * 60 * 4)
+    await sleep(pending)
+    console.log("5 min later ...")
+    res = await orderdb.getOrder0(req)
+    if (res[0].orderStatus == 0) {
+      req.id = res[0].id
+      req.orderStatus = 4
+      res = await orderdb.changeOrderStatus(req)
+      if (typeof (res) == 'object') {
+        console.log("order successfully canceled !")
+        //message
+      } else {
+        console.log("order failed canceled !")
+        //message
+      }
+    }
+  }
+}
 
 module.exports = {
 
@@ -116,6 +145,9 @@ module.exports = {
       })
     }
 
+    if (status == 1) {
+      bindOrder(req.order)
+    }
 
     ctx.body = {
       status: status,

@@ -2,6 +2,7 @@
 var period = require('../../utils/period.js')
 var payment = require('../../utils/paymemt.js')
 var util = require('../../utils/util.js')
+var order = require('../../utils/order.js')
 Page({
 
   /**
@@ -20,46 +21,68 @@ Page({
   },
 
   submit: function () {
-    getApp().globalData.order = this.data.order
-    var timeStamp = new Date().getTime().toString()
+    var that = this
+    var order0 = this.data.order
+    order0.orderStatus = 0
     var data = {
-      bookingNo: timeStamp,  /*订单号*/
-      total_fee: this.data.order.cost * 100,   /*订单金额*/
-      body: "小小火锅店-" + this.data.order.period,
-      openId: getApp().globalData.userInfo.openId
+      order: order0
     }
-    payment.getPrepayId(data, function (res) {
+    
+    order.newOrder(data, function (res) {
+      console.log(res)
       if (res.status == 1) {
-        wx.requestPayment(
-          {
-            'timeStamp': res.timeStamp,
-            'nonceStr': res.nonceStr,
-            'package': res.package,
-            'signType': 'MD5',
-            'paySign': res.paySign,
-            'success': function (res) {
-              console.log("支付成功")
-              wx.navigateTo({
-                url: '../paySuccess/paySuccess',
-              })
-            },
-            'fail': function (res) {
-              console.log(res)
-              console.log("支付失败")
-              wx.navigateTo({
-                url: './eatHereOrder/eatHereOrder',
-              })
-            },
-            'complete': function (res) {
-              console.log("支付完成")
+        order0.orderId = res.orderId
+        that.setData({
+          order: order0,
+        })
+        var timeStamp = new Date().getTime().toString()
+        var data = {
+          bookingNo: timeStamp,  /*订单号*/
+          total_fee: order0.cost * 100,   /*订单金额*/
+          body: "小小火锅店-火锅消费",
+          openId: getApp().globalData.userInfo.openId
+        }
+        payment.getPrepayId(data, function (res) {
+          if (res.status == 1) {
+            wx.requestPayment(
+              {
+                'timeStamp': res.timeStamp,
+                'nonceStr': res.nonceStr,
+                'package': res.package,
+                'signType': 'MD5',
+                'paySign': res.paySign,
+                'success': function (res) {
+                  console.log("支付成功")
+                  order.orderStatus = 1
+                  getApp().globalData.order = order0
+                  wx.navigateTo({
+                    url: '../paySuccess/paySuccess',
+                  })
+                },
+                'fail': function (res) {
+                  console.log("支付失败")
+                  order.status = -1
+                  getApp().globalData.order = order0
+                },
+                'complete': function (res) {
+                  console.log("支付完成")
 
-            }
-          })
+                }
+              })
+          } else if (res.status == -1) {
+            util.showModel("提示", "获取支付信息失败，请重试！")
+          } else {
+            util.showModel("提示", "请求出错！")
+          }
+        })
       } else if (res.status == -1) {
-        util.showModel("提示", "获取支付信息失败，请重试！")
+        util.showModel("提示","创建订单失败，请重试！")
+      } else if (res.status == 0) {
+        util.showModel("提示", "数据异常！")
       } else {
         util.showModel("提示", "请求出错！")
       }
+      
     })
   },
 
@@ -72,14 +95,17 @@ Page({
     }
     var that = this
     var order = getApp().globalData.order
-    console.log(order)
     order.shopName = getApp().globalData.shop.shopName
+    that.setData({
+      order: order
+    })
+    /*
     period.getPeriod(order.date, order.time, function(res){
       order.period = res
       that.setData({
         order: order
       })
-    })
+    })*/
   },
 
   /**
