@@ -3,12 +3,21 @@ var food = require('../../utils/food.js')
 var foodType = require('../../utils/foodType.js')
 var util = require('../../utils/util.js')
 var shop = require('../../utils/shop.js')
+var qcloud = require('../../vendor/wafer2-client-sdk/index')
+var config = require('../../config')
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    userInfo: {},
+    logged: false,
+    ifHiddenMenu: true,
+    menuAnimation: {},
+    menuBackAnimation: {},
+    code: [1, 3, 1, 4, 5, 2],
+    codeIndex: 0,
     shopInfo: '',
     ifEatHere: '',
     shopStatus: ["已关店", "营业中"],
@@ -32,6 +41,7 @@ Page({
     orderFood: null,
     finishChooseProperty: false,
     finishModifyProperty: true,
+    ifToBackGround: false,
   },
 
   shopManage: function () {
@@ -39,7 +49,57 @@ Page({
       url: '../unFinishOrder/unFinishOrder',
     })
   },
+  // 用户登录示例
+  login: function () {
+    if (this.data.logged) return
+    var that = this
 
+    // 调用登录接口
+    qcloud.login({
+      success(result) {
+        if (result) {
+          getApp().globalData.userInfo = result
+          getApp().globalData.logged = true
+          that.setData({
+            userInfo: result,
+            logged: true
+          })
+          wx.setStorage({
+            key: "userInfo",
+            data: result
+          })
+        } else {
+          // 如果不是首次登录，不会返回用户信息，请求用户信息接口获取
+          qcloud.request({
+            url: config.service.requestUrl,
+            login: true,
+            success(result) {
+              getApp().globalData.userInfo = result.data.data
+              getApp().globalData.logged = true
+              that.setData({
+                userInfo: result.data.data,
+                logged: true
+              })
+              wx.setStorage({
+                key: "userInfo",
+                data: result.data.data
+              })
+            },
+
+            fail(error) {
+              util.showModel('请求失败', error)
+              console.log('request fail', error)
+            }
+          })
+        }
+      },
+
+      fail(error) {
+        util.showModel('登录失败', error)
+        console.log('登录失败', error)
+      }
+    })
+  },
   refresh: function (e) {
     var that = this
     var data = {
@@ -159,6 +219,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    try {
+      var value = wx.getStorageSync('userInfo')
+      if (value) {
+        console.log("获取用户信息成功")
+        // Do something with return value
+        getApp().globalData.userInfo = value
+        getApp().globalData.logged = true
+        this.setData({
+          userInfo: value,
+          logged: true
+        })
+      } else {
+        console.log("无用户信息")
+        this.login()
+      }
+    } catch (e) {
+      // Do something when catch error
+    }
     var that = this
     this.setData({
       ifEatHere: getApp().globalData.ifEatHere
@@ -239,6 +317,28 @@ Page({
    */
   chooseClass: function (e) {
     var toClass = e.currentTarget.dataset.class
+    var code = this.data.code
+    var codeIndex = this.data.codeIndex
+    var index = parseInt(e.currentTarget.id) + 1
+    console.log(code[codeIndex], index)
+    if (code[codeIndex] == index) {
+      codeIndex++
+      this.setData({
+        codeIndex
+      })
+      if (codeIndex == 6) {
+        console.log("密码正确")
+        this.setData({
+          ifToBackGround: true
+        })
+      }
+    } else {
+      this.setData({
+        codeIndex: 0,
+        ifToBackGround: false,
+      })
+    }
+
     this.setData({
       classChooseId: e.currentTarget.id,
       toClass: toClass
@@ -278,7 +378,7 @@ Page({
           previewImageSrc: e.currentTarget.dataset.src
         })
         // 执行第二组动画 
-        animation.opacity(1).step({duration:300});
+        animation.opacity(1).step({ duration: 300 });
         // 给数据对象储存的第一组动画，更替为执行完第二组动画的动画对象 
         this.setData({
           animationData: animation
@@ -286,7 +386,7 @@ Page({
       }.bind(this), 50)
     }
     if (status == 'close') {
-//第1步：创建动画实例
+      //第1步：创建动画实例
       var animation = wx.createAnimation({
         duration: 300,
         transformOrigin: '50% 100% 0'
@@ -970,6 +1070,76 @@ Page({
       fail: function (res) { },
       complete: function (res) { },
     })
+  },
+
+  /**
+   * 后台操作
+   */
+  toBackGround: function () {
+    var ifToBackGround = this.data.ifToBackGround
+    if (ifToBackGround) {
+      wx.reLaunch({
+        url: '../unFinishOrder/unFinishOrder',
+      })
+    }
+  },
+  /**
+   * 打开菜单
+   */
+  showMenu: function () {
+
+    var menuAnimation = wx.createAnimation({
+      duration: 10,
+      transformOrigin: '50% 100% 0'
+    })
+    var menuBackAnimation = wx.createAnimation({
+      duration: 10,
+    })
+    menuAnimation.opacity(0).scaleY(0).step()
+    menuBackAnimation.opacity(0).step()
+
+    this.setData({
+      menuAnimation: menuAnimation.export(),
+      menuBackAnimation: menuBackAnimation.export()
+    })
+    setTimeout(function () {
+      this.setData({
+        ifHiddenMenu: false
+      })
+      setTimeout(function () {
+        menuAnimation.opacity(1).scaleY(1).step({ duration: 300, transformOrigin: '50% 100% 0' })
+        menuBackAnimation.opacity(0.5).step({ duration: 300, })
+        this.setData({
+          menuAnimation: menuAnimation.export(),
+          menuBackAnimation: menuBackAnimation.export()
+        })
+      }.bind(this), 50)
+
+    }.bind(this), 10)
+  },
+  /**
+   * 关闭菜单
+   */
+  hiddenMenu: function () {
+    var menuAnimation = wx.createAnimation({
+      duration: 300,
+      transformOrigin: '50% 100% 0'
+    })
+    var menuBackAnimation = wx.createAnimation({
+      duration: 300,
+    })
+    menuAnimation.opacity(0).scaleY(0).step()
+    menuBackAnimation.opacity(0).step()
+
+    this.setData({
+      menuAnimation: menuAnimation.export(),
+      menuBackAnimation: menuBackAnimation.export()
+    })
+    setTimeout(function () {
+      this.setData({
+        ifHiddenMenu: true
+      })
+    }.bind(this), 300)
   }
 })
 

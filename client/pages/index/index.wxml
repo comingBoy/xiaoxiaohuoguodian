@@ -3,9 +3,15 @@
 <!--地址选择门店-->
 <view class='address'>
   <view class='boxY'>
-    <view class='addressName'>
+    <image class='headBarImg' src='../../images/menu.png' bindtap='showMenu'></image>
+        <view class='addressName' bindtap='toBackGround'>
       小小火锅店（暨大）
     </view>
+    <image class='headBarImg' src='../../images/kefu.png'>
+      <button open-type='contact' plain='true' style="width: 100rpx;height: 100rpx;position: fixed;top: 0; border: #f6f6f6;">
+      </button>
+    </image>
+
   </view>
 </view>
 
@@ -15,6 +21,9 @@
   <view class='shopstatus'>
     <view class='orderType'>
       {{shopStatus[shopInfo.ifOpen]}}
+    </view>
+    <view class='OrderTime'>
+      订餐时间：5月3日（星期四） 下午
     </view>
   </view>
 
@@ -151,8 +160,8 @@
       <text style='font-size:35rpx;color:#DF6448;margin:40rpx 0 0 16rpx;'>¥{{allPrice}}</text>
     </view>
     <!--下单按钮-->
-    <view class='{{allPrice>=80 ? "payButtom":"canNotPayButtom"}}' bindtap='pay'>
-      {{allPrice>=80 ? "下单":"80元起订"}}
+    <view class='{{allPrice>=40 ? "payButtom":"canNotPayButtom"}}' bindtap='pay'>
+      {{allPrice>=40 ? "下单":"40元起订"}}
     </view>
   </view>
 
@@ -190,8 +199,35 @@
           </view>
         </view>
       </view>
-      <view wx:else>
-      </view>
+      <scroll-view wx:else scroll-y='true' style='height:100%;'>
+        <view class='goodsDetail' wx:for='{{shoppingCart}}' wx:if='{{item.num != 0}}'>
+          <view class='goodsInfo'>
+            <view class='goodsName'>
+              <view class='goodsNameInfo'>
+                {{item.foodName}}
+              </view>
+              <view class='goodsPricePorperty' wx:if='{{item.pricePropertyString.length != 0}}'>
+                ({{item.pricePropertyString}})
+              </view>
+            </view>
+            <view class='goodsPrice'>
+              ¥{{item.num*item.price}}
+            </view>
+            <view class='goodsNumButtom'>
+              <image class='delButton' bindtap='modifyFoodNum' data-src='del' data-index='{{index}}' data-from='shoppingCart' src='../../images/del.png'>
+              </image>
+              <text class='foodNum'>
+                {{item.num}}
+              </text>
+              <image class='addButton' bindtap='modifyFoodNum' data-src='add' data-index='{{index}}' data-from='shoppingCart' src='../../images/add.png'>
+              </image>
+            </view>
+          </view>
+          <view class='goodsProperty'>
+            {{item.propertyString}}
+          </view>
+        </view>
+      </scroll-view>
 
     </view>
   </view>
@@ -340,5 +376,37 @@
         确定
       </view>
     </view>
+  </view>
+</view>
+
+<!--菜单栏-->
+<view class='menuBox' hidden='{{ifHiddenMenu}}'>
+  <view class='menuBack' animation='{{menuBackAnimation}}' bindtap='hiddenMenu'>
+  </view>
+  <view class='menu' animation='{{menuAnimation}}'>
+    <scroll-view class='menuFrame' scroll-y='true'>
+      <view class='userInfo'>
+        <view class='avatarBox'>
+          <image class='avatar' src='{{userInfo.avatarUrl}}'></image>
+        </view>
+        <view class='nickName'>
+          {{userInfo.nickName}}
+        </view>
+      </view>
+      <view class='menuContentBox'>
+        <view class='menuContentList'>
+          <image src='../../images/address.png' class='contentImg'></image>
+          <view class='contentText'>我的地址</view>
+        </view>
+        <view class='menuContentList'>
+          <image src='../../images/phone.png' class='contentImg'></image>
+          <view class='contentText'>通知电话</view>
+        </view>
+        <view class='menuContentList'>
+          <image src='../../images/order.png' class='contentImg'></image>
+          <view class='contentText'>我的订单</view>
+        </view>
+      </view>
+    </scroll-view>
   </view>
 </view>

@@ -1,99 +1,103 @@
 /* pages/eatHereOrder/eatHereOrder.wxss */
-.order{
+
+.order {
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
   height: 100%;
-  background-color: #F2F2F2
+  background-color: #f2f2f2;
 }
 
-.confirmOrder{
-  display:flex;
-  flex-direction:column;
+.confirmOrder {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  width:100%;
-  font-family:"楷体";
-  font-size:40rpx;
-  background-color: #F2F2F2;
-  border-bottom:solid 2rpx #ebebeb;
-  height:70rpx;
-  line-height:65rpx;
+  width: 100%;
+  font-family: "楷体";
+  font-size: 40rpx;
+  background-color: #f2f2f2;
+  border-bottom: solid 2rpx #ebebeb;
+  height: 70rpx;
+  line-height: 65rpx;
 }
 
-.confirmOrder0{
+.confirmOrder0 {
   width: 90%;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.orderDetail{
-  display:flex;
-  flex-direction:column;
-  width:100%;
-  font-size:30rpx;
-  align-items:center;
-  border-bottom:solid 2rpx #ebebeb;
-  background-color: #ffffff
+.orderDetail {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-size: 30rpx;
+  align-items: center;
+  border-bottom: solid 2rpx #ebebeb;
+  background-color: #fff;
 }
 
-.detail{
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-  width:90%;
+.detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
   margin-top: 5rpx;
-  border-bottom:solid 2rpx #ebebeb;
+  border-bottom: solid 2rpx #ebebeb;
 }
 
-.property{
-  color: #888888
+.property {
+  color: #888;
 }
 
-.context{
+.context {
   width: 40%;
 }
 
-.food{
+.food {
   display: flex;
   padding-left: 30rpx;
 }
 
-.food0{
+.food0 {
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
-.foodProperty{
+.foodProperty {
   display: flex;
   padding-left: 60rpx;
-  color: #888888;
+  color: #888;
 }
 
-.price{
-  display:flex;
-  flex-direction:row;
+.price {
+  display: flex;
+  flex-direction: row;
 }
 
-.symbol{
+.symbol {
   color: red;
 }
 
-.modifyOrder{
-  display:flex;
-  flex-direction:row;
-  width:90%;
+.modifyOrder {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
   color: #7195ef;
-  margin-top: 5rpx; 
+  margin-top: 5rpx;
 }
 
-.shoppingCar{
+.shoppingCar {
   width: 30rpx;
   height: 30rpx;
   margin-top: 5rpx;
 }
 
-.submit{
+.submit {
   font-size: 30rpx;
-  background-color: #F2F2F2;
+  background-color: #38bb85;
+  color: white;
+  margin: 30rpx;
 }
+
