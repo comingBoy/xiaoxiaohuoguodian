@@ -1175,9 +1175,10 @@ Page({
   toPages: function (e) { 
     console.log(e)
     var page = e.currentTarget.dataset.page
-    wx.navigateTo({
+    wx.reLaunch({
       url: page,
     })
+    this.hiddenMenu()
   }
 })
 
