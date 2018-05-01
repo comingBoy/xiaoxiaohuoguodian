@@ -80,6 +80,7 @@ var getData = function (url, formData, appid, ctx, nonce_str) {
       body: formData
     }, function (err, response, body) {
       if (!err && response.statusCode == 200) {
+        console.log(response)
         var prepay_id = getXMLNodeValue('prepay_id', body.toString("utf-8"));
         var tmp = prepay_id.split('[');
         var tmp1 = tmp[2].split(']');
@@ -112,9 +113,9 @@ module.exports = {
     var bookingNo = req.bookingNo
     var total_fee = req.total_fee
     var openId = req.openId
-    var appid = "wx5dd90f6193e38265"
+    var appid = "wx505748cb038629ea"
     var body = req.body
-    var nonce_str = "MIXIMIXI1024"
+    var nonce_str = "XIAOXIAOHUOGUODIAN1024"
     var mch_id = "1502037261"
     var notify_url = "https://lmeazhla.qcloud.la/weapp/notify"
     var spbill_create_ip = "172.20.30.155"

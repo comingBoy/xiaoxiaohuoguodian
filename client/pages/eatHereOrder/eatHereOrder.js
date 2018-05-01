@@ -1,5 +1,7 @@
 // pages/eatHereOrder/eatHereOrder.js
 var period = require('../../utils/period.js')
+var payment = require('../../utils/paymemt.js')
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -26,7 +28,7 @@ Page({
       body: "小小火锅店-" + this.data.order.period,
       openId: getApp().globalData.userInfo.openId
     }
-    paymemt.getPrepayId(data, function (res) {
+    payment.getPrepayId(data, function (res) {
       if (res.status == 1) {
         wx.requestPayment(
           {
@@ -37,16 +39,20 @@ Page({
             'paySign': res.paySign,
             'success': function (res) {
               console.log("支付成功")
+              wx.navigateTo({
+                url: '../paySuccess/paySuccess',
+              })
             },
             'fail': function (res) {
               console.log(res)
               console.log("支付失败")
+              wx.navigateTo({
+                url: './eatHereOrder/eatHereOrder',
+              })
             },
             'complete': function (res) {
               console.log("支付完成")
-              wx.navigateTo({
-                url: '../paySuccess/paySuccess',
-              })
+
             }
           })
       } else if (res.status == -1) {
