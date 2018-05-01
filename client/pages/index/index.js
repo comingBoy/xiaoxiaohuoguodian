@@ -11,6 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    orderDate: ['美国', '中国', '巴西', '日本'],
+    orderDateIndex: 0,
     userInfo: {},
     logged: false,
     ifHiddenMenu: true,
@@ -42,6 +44,19 @@ Page({
     finishChooseProperty: false,
     finishModifyProperty: true,
     ifToBackGround: false,
+  },
+
+  getWeekArray: function () {
+    var orderDate = []
+    for (var i = 0; i < 7; i++) {
+      var myDate = new Date();
+      myDate.setDate(myDate.getDate() + i);
+      var s1 = (myDate.getMonth() + 1) + "月" + (myDate.getDate() + 1) + "日"
+      orderDate.push(s1)
+    }
+    this.setData({
+      orderDate
+    })
   },
 
   shopManage: function () {
@@ -221,6 +236,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getWeekArray()
     try {
       var value = wx.getStorageSync('userInfo')
       if (value) {
@@ -1142,7 +1158,13 @@ Page({
         ifHiddenMenu: true
       })
     }.bind(this), 300)
-  }
+  },
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      orderDateIndex: e.detail.value
+    })
+  },
 })
 
 
