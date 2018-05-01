@@ -47,6 +47,8 @@ var config = {
 
         changeShopStatusUrl: `${host}/weapp/changeShopStatus`,
 
+        payUrl: `${host}/weapp/pay`,
+
     }
 };
 

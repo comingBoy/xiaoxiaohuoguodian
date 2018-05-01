@@ -52,4 +52,8 @@ router.post('/changeSell', controllers.food.changeSell)
 
 router.post('/changeShopStatus', controllers.shop.changeShopStatus)
 
+router.post('/pay', controllers.pay.getPrepayId)
+
+router.post('/notify', controllers.pay.notify)
+
 module.exports = router

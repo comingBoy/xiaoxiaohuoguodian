@@ -19,9 +19,41 @@ Page({
 
   submit: function () {
     getApp().globalData.order = this.data.order
-    //支付接口
-    wx.navigateTo({
-      url: '../paySuccess/paySuccess',
+    var timeStamp = new Date().getTime().toString()
+    var data = {
+      bookingNo: timeStamp,  /*订单号*/
+      total_fee: this.data.order.cost * 100,   /*订单金额*/
+      body: "小小火锅店-" + this.data.order.period,
+      openId: getApp().globalData.userInfo.openId
+    }
+    paymemt.getPrepayId(data, function (res) {
+      if (res.status == 1) {
+        wx.requestPayment(
+          {
+            'timeStamp': res.timeStamp,
+            'nonceStr': res.nonceStr,
+            'package': res.package,
+            'signType': 'MD5',
+            'paySign': res.paySign,
+            'success': function (res) {
+              console.log("支付成功")
+            },
+            'fail': function (res) {
+              console.log(res)
+              console.log("支付失败")
+            },
+            'complete': function (res) {
+              console.log("支付完成")
+              wx.navigateTo({
+                url: '../paySuccess/paySuccess',
+              })
+            }
+          })
+      } else if (res.status == -1) {
+        util.showModel("提示", "获取支付信息失败，请重试！")
+      } else {
+        util.showModel("提示", "请求出错！")
+      }
     })
   },
 

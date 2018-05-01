@@ -4,6 +4,7 @@ const debug = require('debug')('koa-weapp-demo')
 const response = require('./middlewares/response')
 const bodyParser = require('koa-bodyparser')
 const config = require('./config')
+const xmlParser = require('koa-xml-body')
 
 canOrder = 1
 connectedTunnelIds = []
@@ -13,6 +14,7 @@ userMap = {}
 app.use(response)
 
 // 解析请求体
+app.use(xmlParser())
 app.use(bodyParser())
 
 // 引入路由分发
