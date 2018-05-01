@@ -66,14 +66,12 @@ page {
   flex-direction: row;
   justify-content: space-between;
   height: 9%;
-  font-size: 35rpx;
+  font-size: 30rpx;
   color: #7c7c7c;
   align-items: center;
 }
 
 .orderType {
-  font-size: 35rpx;
-  color: #7c7c7c;
   padding-left: 20rpx;
 }
 

@@ -4,7 +4,7 @@
 <view class='address'>
   <view class='boxY'>
     <image class='headBarImg' src='../../images/menu.png' bindtap='showMenu'></image>
-        <view class='addressName' bindtap='toBackGround'>
+    <view class='addressName' bindtap='toBackGround'>
       小小火锅店（暨大）
     </view>
     <image class='headBarImg' src='../../images/kefu.png'>
@@ -20,11 +20,13 @@
   <!--点餐类型-->
   <view class='shopstatus'>
     <view class='orderType'>
-      {{shopStatus[shopInfo.ifOpen]}}
+      每日限量订购20份
     </view>
-    <view class='OrderTime'>
-      订餐时间：5月3日（星期四） 下午
-    </view>
+    <picker bindchange="bindPickerChange" value="{{orderDateIndex}}" range="{{orderDate}}">
+      <view class="picker" style='padding-right:20rpx'>
+        取餐时间：{{orderDate[orderDateIndex]}}
+      </view>
+    </picker>
   </view>
 
 
@@ -53,7 +55,7 @@
             <view class='foodInfoBox' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}'>
               <view class='imgBox'>
                 <!--显示图片-->
-                <image class='foodImg' src='{{food.photo}}' mode='aspectFit' bindtap='previewImage' data-src='{{food.photo}}' data-status='open'></image>
+                <image class='foodImg' src='{{food.photo}}' mode='aspectFill' bindtap='previewImage' data-src='{{food.photo}}' data-status='open'></image>
               </view>
               <!--显示具体菜品信息及按键-->
               <view class='foodDetailInfoBox' bindtap='chooseProperty' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}'>
