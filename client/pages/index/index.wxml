@@ -53,7 +53,7 @@
             <view class='foodInfoBox' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}'>
               <view class='imgBox'>
                 <!--显示图片-->
-                <image class='foodImg' src='{{food.photo}}' mode='aspectFit' bindtap='previewImage' data-src='{{food.photo}}' data-status='open'></image>
+                <image class='foodImg' src='{{food.photo}}' mode='aspectFill' bindtap='previewImage' data-src='{{food.photo}}' data-status='open'></image>
               </view>
               <!--显示具体菜品信息及按键-->
               <view class='foodDetailInfoBox' bindtap='chooseProperty' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}'>
