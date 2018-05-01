@@ -11,7 +11,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderDate: ['美国', '中国', '巴西', '日本'],
+    orderDateMD: [],
+    orderDateYMD: [],
     orderDateIndex: 0,
     userInfo: {},
     logged: false,
@@ -47,15 +48,19 @@ Page({
   },
 
   getWeekArray: function () {
-    var orderDate = []
+    var orderDateMD = []
+    var orderDateYMD = []
     for (var i = 0; i < 7; i++) {
       var myDate = new Date();
       myDate.setDate(myDate.getDate() + i);
       var s1 = (myDate.getMonth() + 1) + "月" + (myDate.getDate() + 1) + "日"
-      orderDate.push(s1)
+      var s2 = (myDate.getFullYear()) + "年" + (myDate.getMonth() + 1) + "月" + (myDate.getDate() + 1) + "日"
+      orderDateMD.push(s1)
+      orderDateYMD.push(s2)
     }
     this.setData({
-      orderDate
+      orderDateMD,
+      orderDateYMD
     })
   },
 
@@ -1076,7 +1081,7 @@ Page({
       shopId: 1,
       tableId: 1,
       cost: this.data.allPrice,
-      date: this.data.orderData[orderDataIndex],
+      date: this.data.orderDateYMD[this.data.orderDateIndex],
       ifEatHere: this.data.ifEatHere,
       ifFinish: 0,
       orderFood: orderFood,
