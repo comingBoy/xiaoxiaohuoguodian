@@ -14,8 +14,7 @@ Page({
 
   refresh: function () {
     var that = this
-    //var data = getApp().globalData.userInfo.openId
-    var openId = "objYV0feu9WbSIydHi5LrNlStxlw"
+    var openId = getApp().globalData.userInfo.openId
     var data = {
       openId: openId
     }
@@ -23,12 +22,12 @@ Page({
       title: '读取中，请稍后',
     })
     order.getMyOrder(data, function (res) {
-      console.log(res.myOrder)
-      if (res.status == 1 && res.myOrder.length >0) {
+      console.log(res)
+      if (res.status == 1) {
         that.setData({
           order: res.myOrder.reverse()
         })
-      } else if (res.status == 1 && res.myOrder.length == 0) {
+      } else if (res.status == 0) {
         util.showModel("提示","尚无订单")
       } else {
         util.showModel("提示", "请求出错，请重试")
