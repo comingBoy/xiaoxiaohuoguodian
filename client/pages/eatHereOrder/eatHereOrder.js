@@ -30,7 +30,7 @@ Page({
    */
   onLoad: function (options) {
     getApp().globalData.shop = {
-      shopName: '佛系青蛙暨大店'
+      shopName: '小小火锅店'
     }
     var that = this
     var order = getApp().globalData.order

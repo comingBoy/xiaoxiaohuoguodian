@@ -3,12 +3,12 @@ const fooddb = require('../db/fooddb.js')
 const shop = require('../db/shopdb.js')
 var date = new Date()
 
-function  time_range (beginTime, endTime, nowTime) {
+function time_range(beginTime, endTime, nowTime) {
   var strb = beginTime.split(":");
   if (strb.length != 2) {
-        return false;
+    return false;
   }
-  
+
   var stre = endTime.split(":");
   if (stre.length != 2) {
     return false;
@@ -47,13 +47,11 @@ module.exports = {
     res = await shop.getShopInfo(req)
     t = typeof (res)
     if (t == 'object') {
-      if (res[0].ifOpen == 1) {
-        t = await time_range(res[0].openTime, res[0].closeTime, currentTime)
-        if (t) status = 1
-        else status = 0
-      } else {
-        status = 0
-      }
+
+      t = await time_range(res[0].openTime, res[0].closeTime, currentTime)
+      if (t) status = 1
+      else status = 0
+
     } else {
       status = -1
     }
@@ -81,7 +79,7 @@ module.exports = {
         status = -1
       }
     }
-    
+
     ctx.body = {
       status: status,
       foodList: foodList
@@ -128,7 +126,7 @@ module.exports = {
     let res = await fooddb.newFood(req)
     let t = typeof (res)
     var status = t == 'object' ? 1 : -1
-    
+
     ctx.body = {
       status: status
     }

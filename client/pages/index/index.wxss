@@ -26,7 +26,7 @@ page {
 }
 
 .addressName {
-  width: 100%;
+  width: 63%;
   background-color: #df6448;
   color: white;
   display: flex;
@@ -39,6 +39,7 @@ page {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  width: 100%;
 }
 
 .shopmanage {
@@ -54,11 +55,19 @@ page {
   height: 90%;
 }
 
+.headBarImg {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 20rpx;
+}
+
 .shopstatus {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   height: 9%;
+  font-size: 35rpx;
+  color: #7c7c7c;
   align-items: center;
 }
 
@@ -510,6 +519,7 @@ page {
   bottom: 10%;
   width: 100%;
   z-index: 1001;
+  height: 45%;
 }
 
 .goodsDetail {
@@ -548,4 +558,79 @@ page {
   color: #9f9f9f;
   font-weight: 400;
   font-size: 32rpx;
+}
+
+.menuBack {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+.menu {
+  width: 80%;
+  height: 840rpx;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  z-index: 1001;
+  background: #fff;
+  bottom: 0rpx;
+  display: flex;
+  flex-direction: column;
+  right: 0;
+  margin: auto;
+  border-radius: 50rpx 50rpx 0 0;
+}
+
+.avatarBox {
+  display: flex;
+  justify-content: center;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 120rpx;
+}
+
+.userInfo {
+  padding: 20rpx;
+  font-size: 30rpx;
+}
+
+.nickName {
+  display: flex;
+  justify-content: center;
+  margin-top: 20rpx;
+}
+
+.menuFrame {
+  width: 100%;
+  height: 100%;
+}
+
+.menuContentList {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100rpx;
+}
+
+.contentImg {
+  height: 70rpx;
+  width: 70rpx;
+  margin-left: 100rpx;
+  margin-right: 15rpx;
+}
+
+.contentText {
+  font-size: 35rpx;
+  font-weight: 700;
+  margin-left: 50rpx;
 }
