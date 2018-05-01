@@ -1,5 +1,4 @@
 const request = require('request')
-var rp = require('request-promise');
 
 function paysignjs(appid, nonceStr, package, signType, timeStamp) {
   var ret = {

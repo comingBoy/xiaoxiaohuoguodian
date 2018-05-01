@@ -22,7 +22,6 @@
     "mysql": "^2.14.1",
     "pify": "^2.3.0",
     "wafer-node-sdk": "^1.0.7",
-    "request-promise": "^4.2.2",
     "koa-xml-body": "^2.0.0"
   },
   "devDependencies": {
