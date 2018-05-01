@@ -1076,7 +1076,7 @@ Page({
       shopId: 1,
       tableId: 1,
       cost: this.data.allPrice,
-      date: this.data.orderData[orderDataIndex],
+      date: this.data.orderDate[this.data.orderDateIndex],
       ifEatHere: this.data.ifEatHere,
       ifFinish: 0,
       orderFood: orderFood,
