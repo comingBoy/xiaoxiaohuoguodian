@@ -1,0 +1,10 @@
+<!--pages/upload/upload.wxml-->
+<!--创建部门-->
+<view class='container' >
+  <view class='bigCameraBox'>
+    <view class='cameraBox'>
+      <image src="{{cover}}" class='cameraImage' mode='aspectFill' bindtap='chooseCover'></image>
+      <text class='wordSize'>点击选取图片</text>
+    </view>
+  </view> 
+</view>

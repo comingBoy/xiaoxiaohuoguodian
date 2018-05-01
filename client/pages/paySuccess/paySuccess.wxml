@@ -1,0 +1,18 @@
+<!--pages/paySuccess/paySuccess.wxml-->
+<view class='pay' wx:if='{{status == 1}}'>
+  <image class='icon' mode='aspectFit' src='../../images/success.png'></image>
+  <view class='text'>支付成功！</view>
+  <view class='text'>您的订单号为：{{orderId}}</view>
+  <view class='button0'>
+    <button class='button' bindtap='orderMore'>继续加餐</button>
+    <button class='button' bindtap='getMyOrder'>点单完毕</button>
+  </view>
+</view>
+<view class='pay' wx:elif='{{status == -1}}'>
+  <image class='icon' mode='aspectFit' src='../../images/fail.png'></image>
+  <view class='text'>支付失败！</view>
+</view>
+<view class='pay' wx:elif='{{status == 0}}'>
+  <image class='icon' mode='aspectFit' src='../../images/error.png'></image>
+  <view class='text'>数据库异常！</view>
+</view>

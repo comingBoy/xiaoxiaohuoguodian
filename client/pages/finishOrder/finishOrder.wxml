@@ -1,0 +1,54 @@
+<!--pages/finishOrder/finishOrder.wxml-->
+<view class='order' wx:for='{{finishOrder}}'>
+  <view class='orderDetail'>
+    <view class='detail'>
+      <view class='property'>门店</view>
+      <view>{{item.shopName}}</view>
+    </view>
+    <view class='detail'>
+      <view class='property'>订单号</view>
+      <view>{{item.orderId}}</view>
+    </view>
+    <view wx:if='{{item.ifEatHere == 1}}' class='detail'>
+      <view class='property'>桌位</view>
+      <view>{{item.tableId}}号桌</view>
+    </view>
+    <view class='detail'>
+      <view class='property'>日期时段</view>
+      <view>{{item.period}}</view>
+    </view>
+    <view class='detail'>
+      <view class='property'>取餐方式</view>
+      <view>{{getFoodList[item.ifEatHere]}}</view>
+    </view>
+    <view wx:if='{{item.ifEatHere == 2}}' class='detail'>
+      <view class='property'>配送地址</view>
+      <view class='context'>{{address}}</view>
+    </view>
+    <view class='detail' wx:for='{{item.orderFood}}'>
+      <view class='food0'>
+        <view class='food'>
+          • {{item.foodName}} X {{item.orderNum}}
+        </view>
+        <view class='foodProperty'>
+          {{item.foodProperty}}
+        </view>
+      </view>
+      <view class='price'>
+        <view class='symbol'>¥</view>
+        {{item.singlePrice * item.orderNum}}
+      </view>
+    </view>
+    <view class='detail'>
+      <view class='property'>总计</view>
+        <view class='price'>
+          <view class='symbol'>¥</view>
+            {{item.cost}}
+        </view>
+    </view>
+    <view class='finish'>
+      已完成
+    </view>
+  </view>
+</view>
+

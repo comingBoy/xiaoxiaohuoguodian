@@ -1,0 +1,344 @@
+<!--点餐界面-->
+
+<!--地址选择门店-->
+<view class='address'>
+  <view class='boxY'>
+    <view class='addressName'>
+      小小火锅店（暨大）
+    </view>
+  </view>
+</view>
+
+<!--点餐界面-->
+<view class='orderBox'>
+  <!--点餐类型-->
+  <view class='shopstatus'>
+    <view class='orderType'>
+      {{shopStatus[shopInfo.ifOpen]}}
+    </view>
+  </view>
+
+
+
+  <!--菜单-->
+  <view class='orderList'>
+
+    <!--左侧导航栏-->
+    <view class='navigation'>
+      <view wx:for='{{foodList}}' id='{{index}}' data-class='{{item.classID}}' class='{{classChooseId == index ? "foodClassChoose" : "foodClass"}}' bindtap='chooseClass'>
+        {{item.className}}
+      </view>
+    </view>
+
+    <!--菜单界面-->
+    <scroll-view class='list' scroll-y='true' scroll-into-view='{{toClass}}' scroll-with-animation='true'>
+      <view wx:for='{{foodList}}' class='foodList' wx:for-index='foodListIndex' wx:for-item="foodList" id='{{foodList.classID}}'>
+        <!--种类-->
+        <view class='foodClassName'>
+          「 {{foodList.className}} 」
+        </view>
+        <!--商品-->
+        <view class='foodBox'>
+          <view wx:for='{{foodList.list}}' class='food' wx:for-item="food" wx:for-index='foodIndex'>
+            <!--显示商品信息-->
+            <view class='foodInfoBox' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}'>
+              <view class='imgBox'>
+                <!--显示图片-->
+                <image class='foodImg' src='{{food.photo}}' mode='aspectFit' bindtap='previewImage' data-src='{{food.photo}}' data-status='open'></image>
+              </view>
+              <!--显示具体菜品信息及按键-->
+              <view class='foodDetailInfoBox' bindtap='chooseProperty' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}'>
+                <view class='foodInfo'>
+                  <view class='foodName'>
+                    {{food.name}}
+                  </view>
+                  <view class='foodRemark' wx:if='{{food.remark != ""}}'>
+                    {{food.remark}}
+                  </view>
+
+                  <!--价格显示按情况显示-->
+                  <view class='foodPrice' wx:if='{{food.priceProperty.length > 0}}'>
+                    ¥
+                    <text class='price'>{{food.leastPrice}}/半份</text>
+                  </view>
+                  <view class='foodPrice' wx:else>
+                    ¥{{food.leastPrice}}/份
+                  </view>
+                </view>
+
+                <!--点餐按钮分情况显示-->
+                <!--需要选择规格-->
+                <view class='button' wx:if='{{food.priceProperty.length > 0}}'>
+                  <view class='orderButton'>
+                    选规格
+                  </view>
+                </view>
+
+                <!--需要选择属性，不需要选择规格-->
+                <view class='button' wx:elif='{{food.singleProperty.length > 0 || food.mulProperty.length > 0}}'>
+                  <image class='addButton' src='../../images/add.png'>
+                  </image>
+                </view>
+
+                <!--不需要选择属性-->
+                <view class='button' wx:else>
+                  <image class='delButton' hidden='{{food.orderList.length == 0 || food.orderList[0].num == 0}}' bindtap='modifyFoodNum' data-src='del' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}' data-orderIndex='{{orderIndex}}' data-from='foodList'
+                    src='../../images/del.png'>
+                  </image>
+                  <text class='foodNum' hidden='{{food.orderList.length == 0 || food.orderList[0].num == 0}}'>
+                  {{food.orderList[0].num}}
+                </text>
+                  <image class='addButton' bindtap='modifyFoodNum' data-src='add' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}' data-orderIndex='{{orderIndex}}' data-from='foodList' src='../../images/add.png'>
+                  </image>
+                </view>
+              </view>
+            </view>
+
+            <!--显示订单信息,当存在属性选择的时候并且该物品在订单中才会显示-->
+            <view wx:if='{{food.orderList.length > 0 && food.hasProperty == true}}'>
+              <view wx:for='{{food.orderList}}' wx:for-item='order' hidden='{{order.num <= 0}}' wx:for-index='orderIndex' class='orderInfoBox'>
+                <view class='orderInfo'>
+                  <view class='foodNameInOrderInfo'>
+                    {{food.name}}({{order.priceProperty}})
+                  </view>
+                  <view class='foodPriceInOrderInfo'>
+                    ¥{{order.price}}
+                  </view>
+                </view>
+                <view class='orderProperty' bindtap='modifyProperty' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}' data-orderIndex='{{orderIndex}}' wx:if='{{order.propertyString.length != 0}}'>
+                  <view>
+                    {{order.propertyString}}
+                  </view>
+                  <view class='toChagneProperty'>
+                    ＞
+                  </view>
+                </view>
+                <view class='addDelButton'>
+                  <image class='delButton' bindtap='modifyFoodNum' data-src='del' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}' data-orderIndex='{{orderIndex}}' data-from='foodList' src='../../images/del.png'>
+                  </image>
+                  <text class='foodNum'>
+                    {{order.num}}
+                  </text>
+                  <image class='addButton' bindtap='modifyFoodNum' data-src='add' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}' data-orderIndex='{{orderIndex}}' data-from='foodList' src='../../images/add.png'>
+                  </image>
+                </view>
+
+              </view>
+
+            </view>
+          </view>
+        </view>
+      </view>
+
+    </scroll-view>
+  </view>
+
+  <!--购物车-->
+  <view class='shoppingCart' hidden='{{shoppingCart.length == 0 || allNum == 0 || allPrice == 0}}'>
+    <!--购物车数量，点击可查看购物车详情-->
+    <view class='goodsNum' bindtap='showShoppingCartDetail' data-status='open'>
+      <!--购物车图片-->
+      <image src='../../images/shoppingCart.png' class='shoppingCartImg'>
+      </image>
+      <!--橙色圆点显示数量-->
+      <text class='showGoodsNum'>
+        {{allNum}}
+      </text>
+    </view>
+    <!--购物车费用-->
+    <view class='allPrice'>
+      <text style='font-size:35rpx;margin:40rpx 0 0 30rpx;'>总计</text>
+      <text style='font-size:35rpx;color:#DF6448;margin:40rpx 0 0 16rpx;'>¥{{allPrice}}</text>
+    </view>
+    <!--下单按钮-->
+    <view class='{{allPrice>=80 ? "payButtom":"canNotPayButtom"}}' bindtap='pay'>
+      {{allPrice>=80 ? "下单":"80元起订"}}
+    </view>
+  </view>
+
+  <!--购物车的详情-->
+  <view class='shoppingCartDetailBox'>
+    <view class='mask' bindtap='showShoppingCartDetail' data-status='close' hidden='{{hiddenShoppingCartDetail}}'>
+    </view>
+    <view class='shoppingCartDetail' hidden='{{hiddenShoppingCartDetail}}' animation='{{animationData}}'>
+      <view wx:if='{{shoppingCartNum <= 4}}'>
+        <view class='goodsDetail' wx:for='{{shoppingCart}}' wx:if='{{item.num != 0}}'>
+          <view class='goodsInfo'>
+            <view class='goodsName'>
+              <view class='goodsNameInfo'>
+                {{item.foodName}}
+              </view>
+              <view class='goodsPricePorperty' wx:if='{{item.pricePropertyString.length != 0}}'>
+                ({{item.pricePropertyString}})
+              </view>
+            </view>
+            <view class='goodsPrice'>
+              ¥{{item.num*item.price}}
+            </view>
+            <view class='goodsNumButtom'>
+              <image class='delButton' bindtap='modifyFoodNum' data-src='del' data-index='{{index}}' data-from='shoppingCart' src='../../images/del.png'>
+              </image>
+              <text class='foodNum'>
+                {{item.num}}
+              </text>
+              <image class='addButton' bindtap='modifyFoodNum' data-src='add' data-index='{{index}}' data-from='shoppingCart' src='../../images/add.png'>
+              </image>
+            </view>
+          </view>
+          <view class='goodsProperty'>
+            {{item.propertyString}}
+          </view>
+        </view>
+      </view>
+      <view wx:else>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+<!--图片预览界面-->
+<view class='previewImage'>
+  <view class='mask' data-status='close' hidden='{{previewImage}}' bindtap='previewImage'></view>
+  <image class='previewImageBox' animation='{{animationData}}' src='{{previewImageSrc}}' hidden='{{previewImage}}'></image>
+</view>
+
+<!--选择属性框-->
+<view class='choosePropertyModule'>
+  <!--背景颜色-->
+  <view class='mask' bindtap='chooseProperty' data-status='close' hidden='{{chooseProperty}}'>
+  </view>
+  <image class='foodImgInPro' src='{{chooseFoodInfo.photo}}' animation='{{animationData}}' hidden='{{chooseProperty}}'></image>
+
+  <!--商品属性选择框-->
+  <view class='chooseProperty' animation='{{animationData}}' wx:if='{{chooseFoodInfo.hasProperty}}' hidden='{{chooseProperty}}'>
+    <!--商品信息-->
+    <view class='foodInfoBoxInPro'>
+
+      <view class='foodInfoInPro'>
+        <text style="margin-top: 56rpx;font-size: 39rpx;">{{chooseFoodInfo.name}}</text>
+        <text style="color: #a3a3a3;font-size: 30rpx;margin-top: 9rpx;">{{chooseFoodInfo.remark}}</text>
+      </view>
+      <view class='xButtom' bindtap='chooseProperty' data-status='close'>×</view>
+    </view>
+
+    <!--属性选择View-->
+    <scroll-view scroll-y='true' class='propertyList'>
+      <!--价格属性-->
+      <view wx:if='{{chooseFoodInfo.priceProperty.length > 0}}' class='propertyBox'>
+        <view wx:for='{{chooseFoodInfo.priceProperty}}' wx:for-item='property' class='property' wx:for-index='propertyIndex'>
+          <view class='propertyName'>
+            {{property.propertyName}}
+            <text wx:if='{{property.required}}' class='requiredText'>必选</text>
+          </view>
+          <view class='propertyInfoList'>
+            <view wx:for='{{property.propertyList}}' class='{{item.beChoosed ? "propertyInfoBeChoosed" : "propertyInfo"}}' bindtap='choosePro' data-src='price' data-propertyIndex='{{propertyIndex}}' data-index='{{index}}'>
+              {{item.name}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--单选属性-->
+      <view wx:if='{{chooseFoodInfo.singleProperty.length > 0}}' class='propertyBox'>
+        <view wx:for='{{chooseFoodInfo.singleProperty}}' wx:for-item='property' class='property' wx:for-index='propertyIndex'>
+          <view class='propertyName'>
+            {{property.propertyName}}
+            <text wx:if='{{property.required}}' class='requiredText'>必选</text>
+          </view>
+          <view class='propertyInfoList'>
+            <view wx:for='{{property.propertyList}}' class='{{item.beChoosed ? "propertyInfoBeChoosed" : "propertyInfo"}}' bindtap='choosePro' data-src='single' data-propertyIndex='{{propertyIndex}}' data-index='{{index}}'>
+              {{item.name}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--多选属性-->
+      <view wx:if='{{chooseFoodInfo.mulProperty.length > 0}}' class='propertyBox'>
+        <view wx:for='{{chooseFoodInfo.mulProperty}}' wx:for-item='property' class='property' wx:for-index='propertyIndex'>
+          <view class='propertyName'>
+            {{property.propertyName}}
+            <text wx:if='{{property.required}}' class='requiredText'>必选</text>
+          </view>
+          <view class='propertyInfoList'>
+            <view wx:for='{{property.propertyList}}' class='{{item.beChoosed ? "propertyInfoBeChoosed" : "propertyInfo"}}' bindtap='choosePro' data-src='mul' data-propertyIndex='{{propertyIndex}}' data-index='{{index}}'>
+              {{item.name}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!--加入购物车按钮和价格-->
+    <view class='addToShoppingCart'>
+      <view class='currentFoodPrice'>
+        ¥{{chooseFoodInfo.price}}
+      </view>
+      <view class='{{finishChooseProperty ? "finishAddToShoppingCartButtom":"addToShoppingCartButtom"}}' bindtap='addToShoppingCart'>
+        加入购物车
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--修改属性框-->
+<view class='choosePropertyModule'>
+  <!--背景颜色-->
+  <view class='mask' bindtap='modifyProperty' data-status='close' hidden='{{modifyProperty}}'>
+  </view>
+  <image class='foodImgInPro' src='{{chooseFoodInfo.photo}}' animation='{{animationData}}' hidden='{{modifyProperty}}'></image>
+
+  <!--商品属性修改框-->
+  <view class='chooseProperty' animation='{{animationData}}' wx:if='{{chooseFoodInfo.hasProperty}}' hidden='{{modifyProperty}}'>
+    <!--商品信息-->
+    <view class='foodInfoBoxInPro'>
+
+      <view class='foodInfoInPro'>
+        <text style="margin-top: 56rpx;font-size: 39rpx;">{{chooseFoodInfo.name}}({{chooseFoodInfo.pricePropertyString}})</text>
+        <text style="color: #a3a3a3;font-size: 30rpx;margin-top: 9rpx;">{{chooseFoodInfo.remark}}</text>
+      </view>
+      <view class='xButtom' bindtap='modifyProperty' data-status='close'>×</view>
+    </view>
+
+    <!--属性选择View-->
+    <scroll-view scroll-y='true' class='propertyList'>
+      <!--单选属性-->
+      <view wx:if='{{chooseFoodInfo.singleProperty.length > 0}}' class='propertyBox'>
+        <view wx:for='{{chooseFoodInfo.singleProperty}}' wx:for-item='property' class='property' wx:for-index='propertyIndex'>
+          <view class='propertyName'>
+            {{property.propertyName}}
+            <text wx:if='{{property.required}}' class='requiredText'>必选</text>
+          </view>
+          <view class='propertyInfoList'>
+            <view wx:for='{{property.propertyList}}' class='{{item.beChoosed ? "propertyInfoBeChoosed" : "propertyInfo"}}' bindtap='modifyPro' data-src='single' data-propertyIndex='{{propertyIndex}}' data-index='{{index}}'>
+              {{item.name}}
+            </view>
+          </view>
+        </view>
+      </view>
+      <!--多选属性-->
+      <view wx:if='{{chooseFoodInfo.mulProperty.length > 0}}' class='propertyBox'>
+        <view wx:for='{{chooseFoodInfo.mulProperty}}' wx:for-item='property' class='property' wx:for-index='propertyIndex'>
+          <view class='propertyName'>
+            {{property.propertyName}}
+            <text wx:if='{{property.required}}' class='requiredText'>必选</text>
+          </view>
+          <view class='propertyInfoList'>
+            <view wx:for='{{property.propertyList}}' class='{{item.beChoosed ? "propertyInfoBeChoosed" : "propertyInfo"}}' bindtap='modifyPro' data-src='mul' data-propertyIndex='{{propertyIndex}}' data-index='{{index}}'>
+              {{item.name}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+
+    <!--加入购物车按钮和价格-->
+    <view class='addToShoppingCart'>
+      <view class='currentFoodPrice'>
+        ¥{{chooseFoodInfo.price}}
+      </view>
+      <view class='{{finishModifyProperty ? "finishAddToShoppingCartButtom":"addToShoppingCartButtom"}}' bindtap='confirmModifyPro'>
+        确定
+      </view>
+    </view>
+  </view>
+</view>

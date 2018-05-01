@@ -1,0 +1,2 @@
+<!--pages/test/test.wxml-->
+<button bindtap='test'>功能测试</button>

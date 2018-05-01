@@ -1,0 +1,55 @@
+<!--pages/eatHereOrder/eatHereOrder.wxml-->
+
+<view class='order'>
+  <view class='confirmOrder'>
+    <view class='confirmOrder0'>确认订单：</view>
+  </view>
+  <view class='orderDetail'>
+    <view class='detail'>
+      <view class='property'>门店</view>
+      <view>{{order.shopName}}</view>
+    </view>
+    <view wx:if='{{order.ifEatHere == 1}}' class='detail'>
+      <view class='property'>桌位</view>
+      <view>{{order.tableId}}号桌</view>
+    </view>
+    <view class='detail'>
+      <view class='property'>日期时段</view>
+      <view>{{order.period}}</view>
+    </view>
+    <view class='detail'>
+      <view class='property'>取餐方式</view>
+      <view>{{getFoodList[order.ifEatHere]}}</view>
+    </view>
+    <view wx:if='{{order.ifEatHere == 2}}' class='detail'>
+      <view class='property'>配送地址</view>
+      <view class='context'>{{address}}</view>
+    </view>
+    <view class='detail' wx:for='{{order.orderFood}}'>
+      <view class='food0'>
+        <view class='food'>
+          • {{item.foodName}} X {{item.orderNum}}
+        </view>
+        <view class='foodProperty'>
+          {{item.foodProperty}}
+        </view>
+      </view>
+      <view class='price'>
+        <view class='symbol'>¥</view>
+        {{item.singlePrice * item.orderNum}}
+      </view>
+    </view>
+    <view class='detail'>
+      <view class='property'>总计</view>
+      <view class='price'>
+        <view class='symbol'>¥</view>
+        {{order.cost}}
+      </view>
+    </view>
+    <view class='modifyOrder' bindtap='modifyOrder'>
+      <image src='../../images/gouwuche.png' class='shoppingCar' mode='aspectFit'></image>
+      修改订单
+    </view>
+  </view>
+  <button class='submit' bindtap='submit'>前往支付</button>
+</view>

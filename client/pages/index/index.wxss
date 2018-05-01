@@ -1,0 +1,551 @@
+/**index.wxss**/
+
+page {
+  background: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.address {
+  width: 100%;
+  background-color: #df6448;
+  color: white;
+  display: flex;
+  justify-content: center;
+  height: 10%;
+  font-size: 35rpx;
+  line-height: 80rpx;
+}
+
+.boxY {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.addressName {
+  width: 100%;
+  background-color: #df6448;
+  color: white;
+  display: flex;
+  justify-content: center;
+  font-size: 35rpx;
+}
+
+.boxY {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.shopmanage {
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.orderBox {
+  background-color: #f6f6f6;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+}
+
+.shopstatus {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 9%;
+  align-items: center;
+}
+
+.orderType {
+  font-size: 35rpx;
+  color: #7c7c7c;
+  padding-left: 20rpx;
+}
+
+.orderList {
+  border: solid 1rpx #ebebeb;
+  display: flex;
+  height: 77%;
+  width: 100%;
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  border-right: solid #ebebeb 0.5rpx;
+  width: 23%;
+}
+
+.list {
+  width: 77%;
+  background-color: white;
+}
+
+.foodClass {
+  font-size: 28rpx;
+  padding: 30rpx;
+  font-weight: 900;
+  border-bottom: solid 1rpx #ebebeb;
+}
+
+.foodClassChoose {
+  color: #df6448;
+  font-size: 30rpx;
+  padding: 26rpx;
+  font-weight: 900;
+  border-bottom: solid 1rpx #ebebeb;
+  border-left: solid;
+  background-color: white;
+}
+
+.foodClassName {
+  font-size: 30rpx;
+  padding: 24rpx;
+  border-bottom: solid 1rpx #ebebeb;
+}
+
+.foodClassName {
+  font-size: 27rpx;
+  padding: 24rpx;
+  border-bottom: solid 1rpx #ebebeb;
+  background-color: #f6f6f6;
+}
+
+.foodBox {
+  background-color: white;
+}
+
+.food {
+}
+
+.foodImg {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.tableNum {
+  color: #000;
+  font-size: 35rpx;
+  font-weight: 900;
+  border-bottom: solid 1rpx #ebebeb;
+  width: 100%;
+  text-align: center;
+  padding: 23rpx 0;
+  padding: 2% 0;
+  height: 4%;
+}
+
+.foodInfo {
+  display: flex;
+  flex-direction: column;
+  margin-left: 3%;
+  justify-content: space-around;
+  margin-top: -15rpx;
+  width: 46%;
+}
+
+.foodName {
+  font-weight: 900;
+  font-size: 31rpx;
+}
+
+.foodRemark {
+  font-size: 25rpx;
+  color: #7c7c7c;
+  font-weight: 500;
+  letter-spacing: 3rpx;
+}
+
+.foodPrice {
+  color: #df6448;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.price {
+  margin: 0 5rpx;
+}
+
+.orderButton {
+  height: 48rpx;
+  border: solid 3rpx #e3e3e3;
+  font-size: 29rpx;
+  border-radius: 30rpx;
+  width: 111rpx;
+  text-align: center;
+  line-height: 48rpx;
+  color: #7c7c7c;
+}
+
+.order {
+  border: solid 1rpx #b3b3b3;
+  height: 50rpx;
+  width: 50rpx;
+  border-radius: 50%;
+  color: #b3b3b3;
+  text-align: center;
+  line-height: 45rpx;
+  margin-top: 80rpx;
+  margin-left: 30rpx;
+}
+
+.foodInfoBox {
+  margin: 29rpx 0 0 29rpx;
+  border-bottom: solid 1rpx #ebebeb;
+  display: flex;
+  height: 172rpx;
+  width: 100%;
+}
+
+.foodDetailInfoBox {
+  display: flex;
+  height: 172rpx;
+  width: 100%;
+}
+
+.orderInfoBox {
+  background: #f7f7f7;
+  display: flex;
+  flex-direction: column;
+}
+
+.imgBox {
+  width: 14%;
+}
+
+.button {
+  width: 33%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.addButton {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.delButton {
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.foodNum {
+  color: #df6448;
+  font-weight: 900;
+  text-align: center;
+  height: 50rpx;
+  line-height: 18rpx;
+}
+
+.shoppingCart {
+  background: #f6f6f6;
+  height: 14%;
+  width: 100%;
+  border-top: solid 1rpx #e6e6e6;
+  display: flex;
+  z-index: 1001;
+}
+
+.mask {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #000;
+  opacity: 0.5;
+  overflow: hidden;
+}
+
+.chooseProperty {
+  width: 100%;
+  height: 860rpx;
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  z-index: 1001;
+  background: #fafafa;
+  bottom: 0rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.goodsNum {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.allPrice {
+  display: flex;
+  width: 40%;
+  font-weight: 900;
+}
+
+.payButtom {
+  width: 202rpx;
+  background-color: #38bb85;
+  height: 75rpx;
+  margin: auto;
+  text-align: center;
+  line-height: 71rpx;
+  border: solid 1rpx #2ab079;
+  border-radius: 12rpx;
+  color: white;
+}
+
+.canNotPayButtom {
+  width: 202rpx;
+  background-color: #bfbfbf;
+  height: 75rpx;
+  margin: auto;
+  text-align: center;
+  line-height: 71rpx;
+  border-radius: 12rpx;
+  color: white;
+}
+
+.shoppingCartImg {
+  width: 70rpx;
+  height: 70rpx;
+}
+
+.showGoodsNum {
+  position: relative;
+  top: -24rpx;
+  color: white;
+  background-color: #df6448;
+  width: 40rpx;
+  height: 40rpx;
+  font-size: 30rpx;
+  text-align: center;
+  line-height: 13rpx;
+  border-radius: 50%;
+}
+
+.foodInfoBoxInPro {
+  height: 25%;
+  display: flex;
+  flex-direction: row;
+  border-bottom: solid 3rpx #e6e6e6;
+}
+
+.propertyList {
+  height: 60%;
+}
+
+.addToShoppingCart {
+  display: flex;
+  height: 16%;
+  background-color: #f6f6f6;
+  border-top: solid #e5e5e5 2rpx;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.foodImgInPro {
+  position: fixed;
+  z-index: 1002;
+  bottom: 685rpx;
+  left: 40rpx;
+  width: 180rpx;
+  height: 180rpx;
+  background-color: white;
+  padding: 10rpx;
+}
+
+.previewImageBox {
+  position: fixed;
+  z-index: 1002;
+  bottom: 436rpx;
+  left: 76rpx;
+  width: 600rpx;
+  height: 600rpx;
+  border-radius: 20rpx;
+}
+
+.foodInfoInPro {
+  position: relative;
+  left: 270rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.xButtom {
+  position: fixed;
+  right: 40rpx;
+  top: 20rpx;
+  border: solid 3rpx #d95639;
+  width: 50rpx;
+  height: 50rpx;
+  color: #d95639;
+  text-align: center;
+  line-height: 48rpx;
+  border-radius: 50%;
+}
+
+.propertyBox {
+  padding: 0 0 0 40rpx;
+}
+
+.propertyName {
+  font-size: 35rpx;
+}
+
+.requiredText {
+  margin-left: 15rpx;
+  color: #df6448;
+}
+
+.propertyInfo {
+  color: #636363;
+  font-size: 35rpx;
+  border: solid 1rpx #cfcfcf;
+  padding: 12rpx 22rpx;
+  border-radius: 6%;
+  margin-right: 27rpx;
+  margin-top: 20rpx;
+}
+
+.propertyInfoBeChoosed {
+  color: black;
+  font-size: 35rpx;
+  background-color: #fce5bc;
+  border: solid 1rpx #e8c992;
+  padding: 12rpx 22rpx;
+  border-radius: 6%;
+  margin-right: 27rpx;
+  margin-top: 20rpx;
+}
+
+.propertyInfoList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.currentFoodPrice {
+  color: #d45437;
+  margin-left: 100rpx;
+}
+
+.addToShoppingCartButtom {
+  margin-right: 100rpx;
+  background-color: #d45437;
+  color: white;
+  padding: 15rpx 30rpx;
+  border-radius: 5%;
+  opacity: 0.5;
+}
+
+.finishAddToShoppingCartButtom {
+  margin-right: 100rpx;
+  background-color: #d45437;
+  color: white;
+  padding: 15rpx 30rpx;
+  border-radius: 5%;
+}
+
+.addDelButton {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: absolute;
+  right: 0rpx;
+  margin: 60rpx 10rpx;
+}
+
+.orderInfo {
+  height: 172rpx;
+  margin-left: 29rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-left: 30rpx;
+}
+
+.orderProperty {
+  border-top: solid 4rpx #efefef;
+  border-bottom: solid 4rpx #efefef;
+  color: #88888a;
+  font-size: 30rpx;
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  margin-left: 29rpx;
+  justify-content: space-between;
+}
+
+.foodNameInOrderInfo {
+  font-size: 30rpx;
+  font-weight: 600;
+}
+
+.foodPriceInOrderInfo {
+  font-size: 35rpx;
+  color: #df6448;
+  font-weight: 700;
+}
+
+.toChagneProperty {
+  margin-right: 29rpx;
+}
+
+.property {
+  padding: 20rpx 0;
+}
+
+.shoppingCartDetail {
+  background-color: white;
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+  z-index: 1001;
+}
+
+.goodsDetail {
+  font-size: 35rpx;
+  font-weight: 900;
+}
+
+.goodsInfo {
+  display: flex;
+  height: 120rpx;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.goodsName {
+  display: flex;
+  font-size: 35rpx;
+  font-weight: 600;
+  width: 35%;
+}
+
+.goodsPrice {
+  color: #df6448;
+  width: 15%;
+}
+
+.goodsNumButtom {
+  display: flex;
+  width: 25%;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.goodsProperty {
+  padding: 0 0 10rpx 80rpx;
+  color: #9f9f9f;
+  font-weight: 400;
+  font-size: 32rpx;
+}

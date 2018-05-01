@@ -1,0 +1,44 @@
+{
+  "pages":[
+    "pages/login/login",
+    "pages/unFinishOrder/unFinishOrder",
+    "pages/upload/upload",
+    "pages/myOrder/myOrder",
+    "pages/eatHereOrder/eatHereOrder",
+    "pages/index/index",
+    "pages/paySuccess/paySuccess", 
+    "pages/finishOrder/finishOrder",
+    "pages/shopManage/shopManage",
+    "pages/analyse/analyse",
+    "pages/test/test"
+  ],
+  "window":{
+    "backgroundColor":"#393A3F",
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#393A3F",
+    "navigationBarTitleText": "小小火锅店",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/unFinishOrder/unFinishOrder",
+        "iconPath": "images/unfinishorder.png",
+        "selectedIconPath": "images/unfinishorder0.png",
+        "text": "未完成订单"
+      },
+      {
+        "pagePath": "pages/finishOrder/finishOrder",
+        "iconPath": "images/finishorder.png",
+        "selectedIconPath": "images/finishorder0.png",
+        "text": "已完成订单"
+      },
+      {
+        "pagePath": "pages/shopManage/shopManage",
+        "iconPath": "images/shopmanage.png",
+        "selectedIconPath": "images/shopmanage0.png",
+        "text": "店铺管理"
+      }
+    ]
+  }
+}

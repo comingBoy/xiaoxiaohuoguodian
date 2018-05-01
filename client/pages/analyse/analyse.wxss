@@ -1,0 +1,132 @@
+/* pages/analyse/analyse.wxss */
+page {
+    background: #F6F6F6;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+.title{
+  width:100%;
+  background-color:#DF6448;
+  color:white;
+  display:flex;
+  justify-content:center;
+  height:7%;
+  font-size:35rpx;
+  line-height:80rpx;
+}
+
+.title0 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.address {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  justify-content:space-between;
+  align-items: center;
+  font-size:30rpx;
+}
+
+.chooseDate {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  font-size: 30rpx;
+  justify-content:space-between;
+  align-items:center;
+
+}
+
+.addressName {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  justify-content: center;
+  align-items: center;
+  font-size: 30rpx;
+}
+
+.date{
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 30rpx;
+}
+
+.shopLogo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+}
+
+.pullLogo{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5rpx;
+}
+
+.shopmanage{
+  width: 35rpx;
+  height: 35rpx;
+}
+
+.pull{
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.analyse{
+  display: flex;
+  flex-direction: row;
+  background-color: #f6f6f6;
+  height: 100%;
+}
+
+.options{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 100%;
+}
+
+.opt{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  border-bottom: solid 1rpx #ebebeb;
+  font-size: 28rpx;
+  height: 90rpx;
+}
+
+.diagram{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.optChoosed{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+  border-bottom: solid 1rpx #ebebeb;
+  border-left: solid;
+  background-color: white;
+  color: #df6448;
+  font-size: 30rpx;
+  height: 90rpx;
+}

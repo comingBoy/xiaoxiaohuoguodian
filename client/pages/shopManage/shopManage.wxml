@@ -1,0 +1,86 @@
+<!--pages/shopManage/shopManage.wxml-->
+
+<view class='address'>
+  <view class='boxY'>
+    <view class='addressName'>
+      {{shopInfo.shopName}}
+    </view>
+    <image class='shopmanage' src='../../images/shopmanage.png' mode='aspectFit' bindtap='back'></image>
+  </view>
+</view>
+
+<!--点餐界面-->
+<view class='orderBox'>
+  <!--点餐类型-->
+  <view class='shopstatus'>
+    <view class='orderType' bindtap='analyse'>
+    营业分析
+    </view>
+    <view class='orderType' bindtap='changeShopStatus'>
+    {{shopStatus[shopInfo.ifOpen]}}
+    </view>
+  </view>
+
+  <!--菜单-->
+  <view class='orderList'>
+
+    <!--左侧导航栏-->
+    <view class='navigation'>
+      <view wx:for='{{foodList}}' id='{{index}}' data-class='{{item.classID}}' class='{{classChooseId == index ? "foodClassChoose" : "foodClass"}}' bindtap='chooseClass'>
+        {{item.className}}
+      </view>
+    </view>
+
+    <!--菜单界面-->
+    <scroll-view class='list' scroll-y='true' scroll-into-view='{{toClass}}' scroll-with-animation='true'>
+      <view wx:for='{{foodList}}' class='foodList' wx:for-index='foodListIndex' wx:for-item="foodList" id='{{foodList.classID}}'>
+        <!--种类-->
+        <view class='foodClassName'>
+          「 {{foodList.className}} 」
+        </view>
+        <!--商品-->
+        <view class='foodBox'>
+          <view wx:for='{{foodList.list}}' class='food' wx:for-item="food" wx:for-index='foodIndex'>
+            <!--显示商品信息-->
+            <view class='foodInfoBox' data-status='open' data-foodListIndex='{{foodListIndex}}' data-foodIndex='{{foodIndex}}'>
+              <view class='imgBox'>
+                <image class='foodImg' src='{{food.photo}}' mode='aspectFit' data-src='{{food.photo}}'></image>
+              </view>
+              <view class='foodInfo'>
+                <view class='foodName'>
+                  {{food.name}}
+                </view>
+                <view class='foodRemark' wx:if='{{food.remark != ""}}'>
+                  {{food.remark}}
+                </view>
+
+                <!--价格显示按情况显示-->
+                <view class='foodPrice' wx:if='{{food.priceProperty.length > 0}}'>
+                  ¥
+                  <text class='price'>{{food.leastPrice}}</text>起
+                </view>
+                <view class='foodPrice' wx:else>
+                  ¥{{food.leastPrice}}/份
+                </view>
+              </view>
+
+              <!--点餐按钮分情况显示-->
+              <!--需要选择规格-->
+              <view class='button' wx:if='{{food.sellOut == 0}}'>
+                <view class='orderButton' bindtap='changeSell' id='{{foodListIndex}}+{{foodIndex}}'>
+                  停售
+                </view>
+              </view>
+
+              <view class='button' wx:elif='{{food.sellOut == 1}}'>
+                <view class='orderButton' bindtap='changeSell' id='{{foodListIndex}}+{{foodIndex}}'>
+                  起售
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

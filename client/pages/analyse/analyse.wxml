@@ -1,0 +1,97 @@
+<!--pages/analyse/analyse.wxml-->
+<!--pages/shopManage/shopManage.wxml-->
+<wxs module="filters" src="./analyse.wxs"></wxs>
+
+<view class='title'>
+  <view class='title0'>
+    <view class='address'>
+      <view class='addressName'>
+        {{shopInfo.shopName}}
+      </view>
+      <view class='shopLogo'>
+        <image class='shopmanage' src='../../images/shopmanage.png' mode='aspectFit'></image>
+      </view>
+    </view>
+    <view class='chooseDate'>
+      <view class='date'>
+        {{date}}
+      </view>
+      <view class='pullLogo'>
+        <picker mode="date" value="{{date}}" start="2018-01-01" end="2100-12-31" bindchange="chooseDate">
+          <image class='pull' src='../../images/pull.png' mode='aspectFit'></image>
+</picker>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='analyse'>
+  <view class='options'>
+    <view wx:for='{{optionsList}}'>
+      <view id='{{index}}' class='{{choosedIndex == index ? "optChoosed" : "opt"}}' bindtap='chooseOpt'>
+        {{item}}
+      </view>
+    </view>
+  </view>
+  <view class='diagram'>
+    <view hidden='{{choosedIndex != 0}}' style='height: {{width*0.8*0.618}}px; width:100%;   background-color: white;'>
+      <view style='position: absolute; top: {{0.07*height+width*0.8*0.618-30}}px; left: {{0.2*width+30}}px; width: {{0.8*width-60}}px; height: 1px; background-color: black;'></view>
+      <view style='position: absolute; top: {{0.07*height+30}}px; left: {{0.2*width+30}}px; width: 1px; height: {{width*0.8*0.618-60}}px; background-color: black;'></view>
+      <image mode='aspectFit' src='../../images/yaris.png' style='position: absolute; top: {{0.07*height+24}}px; left: {{0.2*width+26}}px; width: 9px; height: 9px;'></image>
+      <image mode='aspectFit' src='../../images/xaris.png' style='position: absolute; top: {{0.07*height+width*0.8*0.618-34.5}}px; left: {{width-31}}px; width: 9px; height: 9px;'></image>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-29}}px; left: {{0.2*width+30}}px; height: 30px; width: {{0.4*width-30}}px; font-size: 14px;'>订单数</view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-29}}px; left: {{0.6*width}}px; height: 30px; width: {{0.4*width-30}}px; font-size: 14px;'>营业额</view>
+
+
+      <view wx:if='{{todayList.eatHereOrder != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618*todayList.eatHereOrder/(todayList.eatHereOrder+todayList.eatOutOrder)}}px; background-color: red; font-size: 10px;'>{{todayList.eatHereOrder}}单</view>
+      <view wx:if='{{todayList.eatOutOrder != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{todayList.eatHereOrder == 0 ? 0.07*height+30+0.382*(width*0.8*0.618-60) : 0.07*height+30+0.382*(width*0.8*0.618-60)+(width*0.8*0.618-60)*0.618*todayList.eatHereOrder/(todayList.eatHereOrder+todayList.eatOutOrder)}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618-(width*0.8*0.618-60)*0.618*todayList.eatHereOrder/(todayList.eatHereOrder+todayList.eatOutOrder)}}px; background-color: orange; font-size: 10px;'>{{todayList.eatOutOrder}}单</view>
+      <view wx:if='{{todayList.eatHereOrder == 0 && todayList.eatOutOrder == 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-50}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>0单</view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)-20}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>{{todayList.eatHereOrder+todayList.eatOutOrder}}单</view>
+
+      <view wx:if='{{todayList.eatHereProfit != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618*todayList.eatHereProfit/(todayList.eatHereProfit+todayList.eatOutProfit)}}px; background-color: red; font-size: 10px;'>{{todayList.eatHereProfit}}元</view>
+      <view wx:if='{{todayList.eatOutProfit != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{todayList.eatHereProfit == 0 ? 0.07*height+30+0.382*(width*0.8*0.618-60) : 0.07*height+30+0.382*(width*0.8*0.618-60)+(width*0.8*0.618-60)*0.618*todayList.eatHereProfit/(todayList.eatHereProfit+todayList.eatOutProfit)}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618-(width*0.8*0.618-60)*0.618*(todayList.eatHereProfit)/(todayList.eatHereProfit+todayList.eatOutProfit)}}px; background-color: orange; font-size: 10px;'>{{todayList.eatOutProfit}}元</view>
+      <view wx:if='{{todayList.eatHereProfit == 0 && todayList.eatOutProfit == 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-50}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>0元</view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)-20}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>{{todayList.eatHereProfit+todayList.eatOutProfit}}元</view>
+
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/18}}px; height: {{(0.8*width-60)/18}}px; background-color: red;'></view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+(0.8*width-60)/6+(0.8*width-60)/9}}px; height: {{(0.8*width-60)/18}}px; font-size: {{(0.8*width-60)/18}}px;'>堂食</view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/18}}px; height: {{(0.8*width-60)/18}}px; background-color: orange;'></view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+2*(0.8*width-60)/3+(0.8*width-60)/9}}px; height: {{(0.8*width-60)/18}}px; font-size: {{(0.8*width-60)/18}}px;'>打包</view>
+
+    </view>
+
+    <view hidden='{{choosedIndex != 1}}' style='height: {{width*0.8*0.618}}px; width:100%;   background-color: white;'>
+      <view style='position: absolute; top: {{0.07*height+width*0.8*0.618-30}}px; left: {{0.2*width+30}}px; width: {{0.8*width-60}}px; height: 1px; background-color: black;'></view>
+      <view style='position: absolute; top: {{0.07*height+30}}px; left: {{0.2*width+30}}px; width: 1px; height: {{width*0.8*0.618-60}}px; background-color: black;'></view>
+      <image mode='aspectFit' src='../../images/yaris.png' style='position: absolute; top: {{0.07*height+24}}px; left: {{0.2*width+26}}px; width: 9px; height: 9px;'></image>
+      <image mode='aspectFit' src='../../images/xaris.png' style='position: absolute; top: {{0.07*height+width*0.8*0.618-34.5}}px; left: {{width-31}}px; width: 9px; height: 9px;'></image>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-29}}px; left: {{0.2*width+30}}px; height: 30px; width: {{0.4*width-30}}px; font-size: 14px;'>订单数</view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-29}}px; left: {{0.6*width}}px; height: 30px; width: {{0.4*width-30}}px; font-size: 14px;'>营业额</view>
+
+
+      <view wx:if='{{todayList.eatHereOrder+todayList.eatOutOrder != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618*(todayList.eatHereOrder+todayList.eatOutOrder)/(todayList.eatHereOrder+todayList.eatOutOrder+yesterdayList.eatHereOrder+yesterdayList.eatOutOrder)}}px; background-color: red; font-size: 10px;'>{{todayList.eatHereOrder+todayList.eatOutOrder}}单</view>
+      <view wx:if='{{yesterdayList.eatHereOrder+yesterdayList.eatOutOrder != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{todayList.eatHereOrder+todayList.eatOutOrder == 0 ? 0.07*height+30+0.382*(width*0.8*0.618-60) : 0.07*height+30+0.382*(width*0.8*0.618-60)+(width*0.8*0.618-60)*0.618*(todayList.eatHereOrder+todayList.eatOutOrder)/(todayList.eatHereOrder+todayList.eatOutOrder+yesterdayList.eatHereOrder+yesterdayList.eatOutOrder)}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618-(width*0.8*0.618-60)*0.618*(todayList.eatHereOrder+todayList.eatOutOrder)/(todayList.eatHereOrder+todayList.eatOutOrder+yesterdayList.eatHereOrder+yesterdayList.eatOutOrder)}}px; background-color: orange; font-size: 10px;'>{{yesterdayList.eatHereOrder+yesterdayList.eatOutOrder}}单</view>
+      <view wx:if='{{todayList.eatHereOrder+todayList.eatOutOrder == 0 && yesterdayList.eatHereOrder+yesterdayList.eatOutOrder == 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-50}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>0单</view>
+      <view wx:if='{{yesterdayList.eatHereOrder+yesterdayList.eatOutOrder != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)-20}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>{{todayList.eatHereOrder+todayList.eatOutOrder-yesterdayList.eatHereOrder-yesterdayList.eatOutOrder>=0 ? "+" : "-"}}{{filters.toFix(100*(todayList.eatHereOrder+todayList.eatOutOrder-yesterdayList.eatHereOrder-yesterdayList.eatOutOrder)/(yesterdayList.eatHereOrder+yesterdayList.eatOutOrder))}}%</view>
+      <view wx:if='{{yesterdayList.eatHereOrder+yesterdayList.eatOutOrder == 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)-20}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>{{todayList.eatHereOrder+todayList.eatOutOrder == 0 ? "+0.00%" : "+++"}}</view>
+      <view wx:if='{{todayList.eatHereProfit+todayList.eatOutProfit != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618*(todayList.eatHereProfit+todayList.eatOutProfit)/(todayList.eatHereProfit+todayList.eatOutProfit+yesterdayList.eatHereProfit+yesterdayList.eatOutProfit)}}px; background-color: red; font-size: 10px;'>{{todayList.eatHereProfit+todayList.eatOutProfit}}元</view>
+      <view wx:if='{{yesterdayList.eatHereProfit+yesterdayList.eatOutProfit != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{todayList.eatHereProfit+todayList.eatOutProfit == 0 ? 0.07*height+30+0.382*(width*0.8*0.618-60) : 0.07*height+30+0.382*(width*0.8*0.618-60)+(width*0.8*0.618-60)*0.618*(todayList.eatHereProfit+todayList.eatOutProfit)/(todayList.eatHereProfit+todayList.eatOutProfit+yesterdayList.eatHereProfit+yesterdayList.eatOutProfit)}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: {{(width*0.8*0.618-60)*0.618-(width*0.8*0.618-60)*0.618*(todayList.eatHereProfit+todayList.eatOutProfit)/(todayList.eatHereProfit+todayList.eatOutProfit+yesterdayList.eatHereProfit+yesterdayList.eatOutProfit)}}px; background-color: orange; font-size: 10px;'>{{yesterdayList.eatHereProfit+yesterdayList.eatOutProfit}}元</view>
+      <view wx:if='{{todayList.eatHereProfit+todayList.eatOutProfit == 0 && yesterdayList.eatHereProfit+yesterdayList.eatOutProfit == 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+width*0.8*0.618-50}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>0元</view>
+      <view wx:if='{{yesterdayList.eatHereProfit+yesterdayList.eatOutProfit != 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)-20}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>{{todayList.eatHereProfit+todayList.eatOutProfit-yesterdayList.eatHereProfit-yesterdayList.eatOutProfit>=0 ? "+" : "-"}}{{filters.toFix(100*(todayList.eatHereProfit+todayList.eatOutProfit-yesterdayList.eatHereProfit-yesterdayList.eatOutProfit)/(yesterdayList.eatHereProfit+yesterdayList.eatOutProfit))}}%</view>
+      <view wx:if='{{yesterdayList.eatHereProfit+yesterdayList.eatOutProfit == 0}}' style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height+30+0.382*(width*0.8*0.618-60)-20}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/6}}px; height: 20px; font-size: 10px'>{{todayList.eatHereProfit+todayList.eatOutProfit == 0 ? "+0.00%" : "+++"}}</view>
+
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+(0.8*width-60)/6}}px; width: {{(0.8*width-60)/18}}px; height: {{(0.8*width-60)/18}}px; background-color: red;'></view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+(0.8*width-60)/6+(0.8*width-60)/9}}px; height: {{(0.8*width-60)/18}}px; font-size: {{(0.8*width-60)/18}}px;'>当日</view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+2*(0.8*width-60)/3}}px; width: {{(0.8*width-60)/18}}px; height: {{(0.8*width-60)/18}}px; background-color: orange;'></view>
+      <view style='display: flex; flex-direction: row; justify-content: center; align-items: center; position: absolute; top: {{0.07*height}}px; left: {{0.2*width+30+2*(0.8*width-60)/3+(0.8*width-60)/9}}px; height: {{(0.8*width-60)/18}}px; font-size: {{(0.8*width-60)/18}}px;'>前日</view>
+    </view>
+
+    <view hidden='{{choosedIndex != 2}}' style='height: {{width*0.8*0.618}}px; width:100%;   background-color: white;'>
+      <view style='position: absolute; top: {{0.07*height+width*0.8*0.618-30}}px; left: {{0.2*width+30}}px; width: {{0.8*width-60}}px; height: 1px; background-color: black;'></view>
+      <view style='position: absolute; top: {{0.07*height+30}}px; left: {{0.2*width+30}}px; width: 1px; height: {{width*0.8*0.618-60}}px; background-color: black;'></view>
+      <image mode='aspectFit' src='../../images/yaris.png' style='position: absolute; top: {{0.07*height+24}}px; left: {{0.2*width+26}}px; width: 9px; height: 9px;'></image>
+      <image mode='aspectFit' src='../../images/xaris.png' style='position: absolute; top: {{0.07*height+width*0.8*0.618-34.5}}px; left: {{width-31}}px; width: 9px; height: 9px;'></image>
+    </view>
+  </view>
+</view>
+
+

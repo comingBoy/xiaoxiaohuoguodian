@@ -1,0 +1,70 @@
+/* pages/unFinishOrder/unFinishOrder.wxss */
+.order{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  margin-top:50rpx;
+}
+
+.orderDetail{
+  display:flex;
+  flex-direction:column;
+  width:95%;
+  box-sizing: border-box;
+  border-bottom:solid 5rpx #ebebeb;
+  border-left:solid 2rpx #ebebeb;
+  border-right:solid 5rpx #ebebeb;
+  border-top:solid 2rpx #ebebeb;
+  font-size:30rpx;
+  align-items:center;
+  background-color: #ffffff
+}
+
+.detail{
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  width:90%;
+  margin-top: 5rpx;
+  border-bottom:solid 2rpx #ebebeb;
+}
+
+.property{
+  color: #888888
+}
+
+.context{
+  width: 40%;
+}
+
+.food{
+  display: flex;
+  padding-left: 30rpx;
+}
+
+.food0{
+  display: flex;
+  flex-direction: column
+}
+
+.foodProperty{
+  display: flex;
+  padding-left: 60rpx;
+  color: #888888;
+}
+
+.price{
+  display:flex;
+  flex-direction:row;
+}
+
+.symbol{
+  color: red;
+}
+
+.finishOrder{
+  font-size: 30rpx;
+  background-color: #F2F2F2;
+}
