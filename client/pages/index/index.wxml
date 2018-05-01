@@ -404,7 +404,7 @@
           <image src='../../images/phone.png' class='contentImg'></image>
           <view class='contentText'>通知电话</view>
         </view>
-        <view class='menuContentList'>
+        <view class='menuContentList' bindtap='toPages' data-page='../../pages/myOrder/myOrder'>
           <image src='../../images/order.png' class='contentImg'></image>
           <view class='contentText'>我的订单</view>
         </view>
