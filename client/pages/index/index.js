@@ -1165,6 +1165,16 @@ Page({
       orderDateIndex: e.detail.value
     })
   },
+  /**
+   * 页面跳转
+   */
+  toPages: function (e) { 
+    console.log(e)
+    var page = e.currentTarget.dataset.page
+    wx.navigateTo({
+      url: page,
+    })
+  }
 })
 
 
