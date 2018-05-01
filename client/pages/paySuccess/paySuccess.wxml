@@ -12,7 +12,7 @@
   <image class='icon' mode='aspectFit' src='../../images/fail.png'></image>
   <view class='text'>支付失败！</view>
 </view>
-<view class='pay' wx:elif='{{status == 0}}'>
+<view class='pay' wx:else>
   <image class='icon' mode='aspectFit' src='../../images/error.png'></image>
   <view class='text'>数据库异常！</view>
 </view>

@@ -14,14 +14,10 @@
       <view>{{order.tableId}}号桌</view>
     </view>
     <view class='detail'>
-      <view class='property'>日期时段</view>
-      <view>{{order.period}}</view>
+      <view class='property'>用餐日期</view>
+      <view>{{order.date}}</view>
     </view>
-    <view class='detail'>
-      <view class='property'>取餐方式</view>
-      <view>{{getFoodList[order.ifEatHere]}}</view>
-    </view>
-    <view wx:if='{{order.ifEatHere == 2}}' class='detail'>
+    <view  class='detail'>
       <view class='property'>配送地址</view>
       <view class='context'>{{address}}</view>
     </view>

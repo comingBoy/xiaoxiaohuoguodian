@@ -6,8 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderId: 1,
-    status: 2
+    orderId: '',
+    status: ''
   },
 
   getMyOrder: function () {
@@ -26,16 +26,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    var data = {
-      order: getApp().globalData.order
-    }
-    order.newOrder(data, function (res) {
-      console.log(res)
-      that.setData({
-        orderId: res.orderId,
-        status: res.status
-      })
+    var order = getApp().globalData.order
+    this.setData({
+      orderId: order.orderId,
+      status: order.orderStatus
     })
   },
 
