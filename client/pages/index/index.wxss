@@ -618,6 +618,7 @@ page {
   justify-content: flex-start;
   align-items: center;
   height: 100rpx;
+  width: 100%;
 }
 
 .contentImg {
@@ -631,4 +632,28 @@ page {
   font-size: 35rpx;
   font-weight: 700;
   margin-left: 50rpx;
+}
+
+.menuContentBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.infoDetail {
+  display: flex;
+  justify-content: center;
+  color: #7c7c7c;
+  font-size: 30rpx;
+  width: 80%;
+}
+
+.infoDetail-input{
+  border-bottom:solid 1rpx #df6448;
+}
+
+.infoDetail-button{
+  background-color: #df6448;
+  color: white;
 }

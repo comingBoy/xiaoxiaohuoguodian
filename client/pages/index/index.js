@@ -11,6 +11,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    ifHiddenAddress: true,
+    ifHiddenPhone: true,
+    myAddress: "",
+    myPhone: "",
     orderDateMD: [],
     orderDateYMD: [],
     orderDateIndex: 0,
@@ -47,6 +51,39 @@ Page({
     ifToBackGround: false,
   },
 
+  getMyAddressAndPhone: function () {
+    var that = this
+    wx.getStorage({
+      key: 'myAddress',
+      success: function (res) {
+        console.log('成功获取地址数据')
+        that.setData({
+          myAddress: res.data
+        })
+      },
+      fail: function () {
+        console.log('暂无地址数据')
+        that.setData({
+          myAddress: ""
+        })
+      }
+    })
+    wx.getStorage({
+      key: 'myPhone',
+      success: function (res) {
+        console.log('成功获取电话数据')
+        that.setData({
+          myPhone: res.data
+        })
+      },
+      fail: function () {
+        console.log('暂无电话数据')
+        that.setData({
+          myPhone: ""
+        })
+      }
+    })
+  },
   getWeekArray: function () {
     var orderDateMD = []
     var orderDateYMD = []
@@ -241,6 +278,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getMyAddressAndPhone()
     this.getWeekArray()
     try {
       var value = wx.getStorageSync('userInfo')
@@ -1159,7 +1197,9 @@ Page({
     })
     setTimeout(function () {
       this.setData({
-        ifHiddenMenu: true
+        ifHiddenMenu: true,
+        ifHiddenAddress: true,
+        ifHiddenPhone: true,
       })
     }.bind(this), 300)
   },
@@ -1172,13 +1212,93 @@ Page({
   /**
    * 页面跳转
    */
-  toPages: function (e) { 
+  toPages: function (e) {
     console.log(e)
     var page = e.currentTarget.dataset.page
     wx.reLaunch({
       url: page,
     })
     this.hiddenMenu()
+  },
+  /**
+   * 显示我的地址
+   */
+  showMyAddress: function () {
+    var ifHiddenAddress = !this.data.ifHiddenAddress
+    this.setData({
+      ifHiddenAddress,
+      ifHiddenPhone: true,
+    })
+  },
+  /**
+   * 输入我的地址
+   */
+  inputMyAddress: function (e) {
+    var myAddress = e.detail.value
+    this.setData({
+      myAddress
+    })
+  },
+  /**
+   * 保存地址
+   */
+  saveMyAddress: function () {
+    var that = this
+    var myAddress = this.data.myAddress
+    wx.setStorage({
+      key: 'myAddress',
+      data: myAddress,
+      success: function () {
+        wx.showToast({
+          title: '保存成功',
+        })
+        setTimeout(function () {
+          that.setData({
+            ifHiddenAddress: true
+          })
+        }, 1500)
+      }
+    })
+  },
+  /**
+ * 显示我的电话
+ */
+  showMyPhone: function () {
+    var ifHiddenPhone = !this.data.ifHiddenPhone
+    this.setData({
+      ifHiddenPhone,
+      ifHiddenAddress: true,
+    })
+  },
+  /**
+   * 输入我的地址
+   */
+  inputMyPhone: function (e) {
+    var myPhone = e.detail.value
+    this.setData({
+      myPhone
+    })
+  },
+  /**
+   * 保存地址
+   */
+  saveMyPhone: function () {
+    var that = this
+    var myPhone = this.data.myPhone
+    wx.setStorage({
+      key: 'myPhone',
+      data: myPhone,
+      success: function () {
+        wx.showToast({
+          title: '保存成功',
+        })
+        setTimeout(function () {
+          that.setData({
+            ifHiddenPhone: true
+          })
+        }, 1500)
+      }
+    })
   }
 })
 

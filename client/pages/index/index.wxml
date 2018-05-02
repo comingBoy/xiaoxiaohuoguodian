@@ -396,13 +396,27 @@
         </view>
       </view>
       <view class='menuContentBox'>
-        <view class='menuContentList'>
+        <view class='menuContentList' bindtap='showMyAddress'>
           <image src='../../images/address.png' class='contentImg'></image>
           <view class='contentText'>我的地址</view>
         </view>
-        <view class='menuContentList'>
+        <view hidden='{{ifHiddenAddress}}' class='infoDetail'>
+          <input value='{{myAddress}}' placeholder='请输入你的地址' class='infoDetail-input' bindinput='inputMyAddress'>
+          </input>
+          <button size='mini' class='infoDetail-button' bindtap='saveMyAddress'>
+            确定
+          </button>
+        </view>
+        <view class='menuContentList' bindtap='showMyPhone'>
           <image src='../../images/phone.png' class='contentImg'></image>
           <view class='contentText'>通知电话</view>
+        </view>
+        <view hidden='{{ifHiddenPhone}}' class='infoDetail'>
+          <input value='{{myPhone}}' placeholder='请输入你的电话' class='infoDetail-input' bindinput='inputMyPhone'>
+          </input>
+          <button size='mini' class='infoDetail-button' bindtap='saveMyPhone'>
+            确定
+          </button>
         </view>
         <view class='menuContentList' bindtap='toPages' data-page='../../pages/myOrder/myOrder'>
           <image src='../../images/order.png' class='contentImg'></image>
