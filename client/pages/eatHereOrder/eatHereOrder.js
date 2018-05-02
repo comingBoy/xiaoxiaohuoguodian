@@ -8,9 +8,17 @@ Page({
    * 页面的初始数据
    */
   data: {
+    checkDeclare: false,
+    ifHiddenOrder: true,
+    ifHiddenFill: false,
     getFoodList: ["打包自取", "堂食", "打包配送"],
     address: '广州市番禺区兴业大道东855号',
-    order: ''
+    order: '',
+    declareContent: [
+      "1、我方仅为服务配送方，如果在用餐时发生意外事故我方不负任何责任（比如被阿姨大大发现等）",
+      "2、我方保证进货渠道正规，完成食材基本清洗，但为了您的身体健康，请确认食材干净程度，自行进行二次清洗，如果出现食物中毒等问题，我方不负责任",
+      "3、如果需要其他用餐工具，请通过客服按钮咨询",
+    ],
   },
 
   modifyOrder: function () {
@@ -46,9 +54,6 @@ Page({
             'fail': function (res) {
               console.log(res)
               console.log("支付失败")
-              wx.navigateTo({
-                url: './eatHereOrder/eatHereOrder',
-              })
             },
             'complete': function (res) {
               console.log("支付完成")
@@ -74,60 +79,124 @@ Page({
     var order = getApp().globalData.order
     console.log(order)
     order.shopName = getApp().globalData.shop.shopName
+    that.setData({
+      order: order
+    })
+    /* 
     period.getPeriod(order.date, order.time, function(res){
       order.period = res
       that.setData({
         order: order
       })
-    })
+    })*/
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
+  },
+  checkDeclare: function (e) {
+    var src = e.currentTarget.dataset.src
+    src = !src
+    this.setData({
+      checkDeclare: src
+    })
+  },
+  /**
+   * 输入地址
+   */
+  inputMyAddress: function (e) {
+    console.log(e)
+    var order = this.data.order
+    order.address = e.detail.value
+    this.setData({
+      order
+    })
+  },
+  /**
+   * 输入电话
+   */
+  inputMyPhone: function (e) {
+    console.log(e)
+    var order = this.data.order
+    order.phone = e.detail.value
+    this.setData({
+      order
+    })
+  },
+  /**
+   * 确认信息
+   */
+  comfirmInfo: function (e) {
+    var checkDeclare = this.data.checkDeclare
+    var order = this.data.order
+    if ((checkDeclare && (order.phone != "") && (order.address != ""))) {
+      console.log('跳转到订单支付')
+      wx.setStorage({
+        key: 'myAddress',
+        data: order.address,
+      })
+      wx.setStorage({
+        key: 'myPhone',
+        data: order.phone,
+      })
+      this.setData({
+        ifHiddenOrder: false,
+        ifHiddenFill: true,
+      })
+    }
+  },
+  /**
+   * 修改地址电话
+   */
+  modify: function () {
+    this.setData({
+      ifHiddenOrder: true,
+      ifHiddenFill: false,
+    })
   }
 })

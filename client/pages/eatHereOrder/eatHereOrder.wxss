@@ -1,5 +1,9 @@
 /* pages/eatHereOrder/eatHereOrder.wxss */
 
+page {
+  height: 100%;
+}
+
 .order {
   display: flex;
   flex-direction: column;
@@ -53,6 +57,8 @@
 
 .context {
   width: 40%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .food {
@@ -101,3 +107,80 @@
   margin: 30rpx;
 }
 
+.menuContentList {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100rpx;
+  width: 65%;
+}
+
+.contentText {
+  font-size: 35rpx;
+  font-weight: 700;
+}
+
+.infoDetail {
+  display: flex;
+  justify-content: center;
+  color: #7c7c7c;
+  font-size: 30rpx;
+  width: 65%;
+}
+
+.infoDetail-input {
+  border-bottom: solid 1rpx #df6448;
+  width: 100%;
+}
+
+.infoDetail-button {
+  background-color: #df6448;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 75%;
+}
+
+.fillAddressAndPhone {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+}
+
+.declare {
+  border: solid 5rpx #df6448;
+  width: 70%;
+  margin-top: 65rpx;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.declare-title {
+  font-weight: 700;
+  margin-top: 10rpx;
+  margin-bottom: 10rpx;
+}
+
+.declare-content {
+  font-size: 30rpx;
+  color: #7c7c7c;
+  margin-top: 10rpx;
+  width: 100%;
+}
+
+.declare-content-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 90%;
+}
+
+.checkDeclare {
+  font-size: 30rpx;
+  margin-top: 50rpx;
+  margin-bottom:20rpx;
+}

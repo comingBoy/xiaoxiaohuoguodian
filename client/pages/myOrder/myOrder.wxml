@@ -51,4 +51,6 @@
 
 <view class='add'>
   <button class='button' bindtap='addMore'>前往点餐</button>
+
+  <button class='button' bindtap='modify'>修改地址、电话</button>
 </view>

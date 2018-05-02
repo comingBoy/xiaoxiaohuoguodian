@@ -1,25 +1,29 @@
 <!--pages/eatHereOrder/eatHereOrder.wxml-->
 
-<view class='order'>
+<view class='order' hidden='{{ifHiddenOrder}}'>
   <view class='confirmOrder'>
     <view class='confirmOrder0'>确认订单：</view>
   </view>
   <view class='orderDetail'>
     <view class='detail'>
       <view class='property'>门店</view>
-      <view>{{order.shopName}}</view>
+      <view class='context'>{{order.shopName}}</view>
     </view>
     <view wx:if='{{order.ifEatHere == 1}}' class='detail'>
       <view class='property'>桌位</view>
-      <view>{{order.tableId}}号桌</view>
+      <view class='context'>{{order.tableId}}号桌</view>
     </view>
     <view class='detail'>
       <view class='property'>用餐日期</view>
-      <view>{{order.date}}</view>
+      <view class='context'>{{order.date}}</view>
     </view>
-    <view  class='detail'>
+    <view class='detail'>
       <view class='property'>配送地址</view>
-      <view class='context'>{{address}}</view>
+      <view class='context'>{{order.address}}</view>
+    </view>
+    <view class='detail'>
+      <view class='property'>通知电话</view>
+      <view class='context'>{{order.phone}}</view>
     </view>
     <view class='detail' wx:for='{{order.orderFood}}'>
       <view class='food0'>
@@ -48,4 +52,37 @@
     </view>
   </view>
   <button class='submit' bindtap='submit'>前往支付</button>
+  <button class='submit' bindtap='modify'>修改地址、电话</button>
+</view>
+
+<view class='fillAddressAndPhone' hidden='{{ifHiddenFill}}'>
+  <view class='menuContentList'>
+    <view class='contentText'>你的地址</view>
+  </view>
+  <view hidden='{{ifHiddenAddress}}' class='infoDetail'>
+    <input value='{{order.address}}' placeholder='请输入你的地址' class='infoDetail-input' bindinput='inputMyAddress'>
+    </input>
+  </view>
+  <view class='menuContentList' bindtap='showMyPhone'>
+    <view class='contentText'>通知电话</view>
+  </view>
+  <view hidden='{{ifHiddenPhone}}' class='infoDetail'>
+    <input value='{{order.phone}}' placeholder='请输入你的电话' type='number' maxlength='11' class='infoDetail-input' bindinput='inputMyPhone'>
+    </input>
+  </view>
+  <button class='infoDetail-button' bindtap='comfirmInfo' style='{{(checkDeclare && (order.phone!="") && (order.address!="")) ? "" : "opacity: 0.5"}}'>
+    确定
+  </button>
+
+  <view class='declare'>
+    <view class='declare-title'>
+      权责申明
+    </view>
+    <view class='declare-content-box'>
+      <view wx:for='{{declareContent}}' class='declare-content'>
+        {{item}}
+      </view>
+    </view>
+    <checkbox  class='checkDeclare' bindtap='checkDeclare' data-src='{{checkDeclare}}'>我同意遵守以上权责条目</checkbox>
+  </view>
 </view>

@@ -1123,6 +1123,8 @@ Page({
       ifEatHere: this.data.ifEatHere,
       ifFinish: 0,
       orderFood: orderFood,
+      address: this.data.myAddress,
+      phone: this.data.myPhone,
     }
     wx.navigateTo({
       url: '../eatHereOrder/eatHereOrder',
@@ -1147,7 +1149,7 @@ Page({
    * 打开菜单
    */
   showMenu: function () {
-
+    this.getMyAddressAndPhone()
     var menuAnimation = wx.createAnimation({
       duration: 10,
       transformOrigin: '50% 100% 0'

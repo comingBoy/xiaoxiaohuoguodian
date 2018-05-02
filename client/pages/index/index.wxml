@@ -412,7 +412,7 @@
           <view class='contentText'>通知电话</view>
         </view>
         <view hidden='{{ifHiddenPhone}}' class='infoDetail'>
-          <input value='{{myPhone}}' placeholder='请输入你的电话' class='infoDetail-input' bindinput='inputMyPhone'>
+          <input value='{{myPhone}}' placeholder='请输入你的电话' type='number' maxlength='11' class='infoDetail-input' bindinput='inputMyPhone'>
           </input>
           <button size='mini' class='infoDetail-button' bindtap='saveMyPhone'>
             确定
