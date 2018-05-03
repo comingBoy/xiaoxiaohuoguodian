@@ -90,8 +90,8 @@ Page({
     for (var i = 0; i < 7; i++) {
       var myDate = new Date();
       myDate.setDate(myDate.getDate() + i);
-      var s1 = (myDate.getMonth() + 1) + "月" + (myDate.getDate() + 1) + "日"
-      var s2 = (myDate.getFullYear()) + "年" + (myDate.getMonth() + 1) + "月" + (myDate.getDate() + 1) + "日"
+      var s1 = (myDate.getMonth() + 1) + "月" + (myDate.getDate()) + "日"
+      var s2 = (myDate.getFullYear()) + "年" + (myDate.getMonth() + 1) + "月" + (myDate.getDate()) + "日"
       orderDateMD.push(s1)
       orderDateYMD.push(s2)
     }
@@ -1085,9 +1085,38 @@ Page({
     }
   },
   /**
+   * 判断是否超出今日15点
+   */
+  ifOverTime: function(){
+    var dateIndex = this.data.orderDateIndex
+    if(dateIndex == 0){
+      var myDate = new Date();//获取系统当前时间
+      var hours = myDate.getHours()
+      console.log(hours)
+      if(hours >= 15){
+        console.log("超出预定时间")
+        return true
+      }else{
+        console.log("可以预定")
+        return false
+      }
+    }else{
+      console.log('可以预定')
+      return false
+    }
+  },
+  /**
    * 支付按钮
    */
   pay: function (e) {
+    if(this.ifOverTime()){
+      wx.showToast({
+        title: '每天三点前截至订单（五点半送货上门）',
+        icon: 'none',
+        duration: 2000,
+      })
+      return
+    }
     var userInfo = getApp().globalData.userInfo
     var shoppingCart = this.data.shoppingCart
     var orderFood = []

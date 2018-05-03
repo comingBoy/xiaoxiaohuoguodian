@@ -3,7 +3,7 @@
  */
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
-var host = 'https://gwdpixbu.qcloud.la';
+var host = 'https://725770150.jidat4909.com';
 
 var config = {
 

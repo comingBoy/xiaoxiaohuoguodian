@@ -5,7 +5,7 @@
   <view class='boxY'>
     <image class='headBarImg' src='../../images/menu.png' bindtap='showMenu'></image>
     <view class='addressName' bindtap='toBackGround'>
-      小小火锅店（暨大）
+      小小便利店JNU
     </view>
     <image class='headBarImg' src='../../images/kefu.png'>
       <button open-type='contact' plain='true' style="width: 100rpx;height: 100rpx;position: fixed;top: 0; border: #f6f6f6;">
@@ -20,11 +20,11 @@
   <!--点餐类型-->
   <view class='shopstatus'>
     <view class='orderType'>
-      每日限量订购20份
+      每天三点前截至订单
     </view>
     <picker bindchange="bindPickerChange" value="{{orderDateIndex}}" range="{{orderDateMD}}">
       <view class="picker" style='padding-right:20rpx'>
-        取餐时间：{{orderDateMD[orderDateIndex]}}
+        取货时间：{{orderDateMD[orderDateIndex]}}
       </view>
     </picker>
   </view>

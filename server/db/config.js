@@ -5,7 +5,7 @@ const production = {
   MYSQL: {
     host: "172.16.155.63",
     user: "root",
-    password: "UGW5Kwjl36540",
+    password: "lilinfeng123",
     port: "3306",
     database: "cAuth",
     supportBigNumbers: true,
@@ -37,16 +37,16 @@ const product = {
 
   //MYSQL数据库配置
   mysql: {
-    host: "172.16.164.124",
+    host: "172.16.155.63",
     user: "root",
-    password: "li0DllWC33890",
+    password: "lilinfeng123",
     port: "3306",
-    database: "workshopManage",
+    database: "orderSystem",
     charset: 'utf8mb4',
   }
 
 }
 
-const config = development
+const config = product
 
 module.exports = config

@@ -15,9 +15,7 @@ Page({
     address: '广州市番禺区兴业大道东855号',
     order: '',
     declareContent: [
-      "1、我方仅为服务配送方，如果在用餐时发生意外事故我方不负任何责任（比如被阿姨大大发现等）",
-      "2、我方保证进货渠道正规，完成食材基本清洗，但为了您的身体健康，请确认食材干净程度，自行进行二次清洗，如果出现食物中毒等问题，我方不负责任",
-      "3、如果需要其他用餐工具，请通过客服按钮咨询",
+
     ],
   },
 
@@ -72,6 +70,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if (this.data.declareContent.length == 0) {
+      this.setData({
+        checkDeclare: true
+      })
+    } else {
+      checkDeclare: false
+    }
     getApp().globalData.shop = {
       shopName: '小小火锅店'
     }

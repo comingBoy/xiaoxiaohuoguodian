@@ -74,7 +74,7 @@
     确定
   </button>
 
-  <view class='declare'>
+  <view  wx:if="{{declareContent.length != 0}}" class='declare'>
     <view class='declare-title'>
       权责申明
     </view>
